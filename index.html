@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+	<head>
+		<meta encoding=utf-8>
+		<title>GBJam 2.0</title>
+		<link rel="stylesheet" type="text/css" href="css/framework.css">
+	</head>
+	<body>
+		<article>
+			<canvas class=main-canvas></canvas>
+			
+			<div id=gb-light></div>
+			
+			<div class=button-round id=button-A></div>
+			<div class=button-round id=button-B></div>
+			
+			<div class=button-rect id=button-select></div>
+			<div class=button-rect id=button-start></div>
+			
+			<div id=button-cross></div>
+			
+			<div id=button-info></div>
+			
+			<footer>
+				<p>A <a href="http://www.gbjam.net/">GBJam</a> Game Developed By<br/>
+				<a href="http://www.glendc.com/">Glen De Cauwsemaecker</a> &amp; 
+				<a href="http://sg.linkedin.com/pub/tommy-tan-sze-yew/84/605/b23/">Tommy Tan Sze Yew</a>.
+				</p>
+				<p>Latest update @ 
+					<time datetime="20013-11-3">3<sup>th</sup> November, 2013</time>
+				</p>
+			</footer>
+		</article>
+		
+		<!-- temp code -->
+		<script>
+			var canvas = document.querySelector('canvas');
+			var ctx = canvas.getContext('2d');
+			var spinnerctx;
+			
+			canvas.width = 160;
+			canvas.height = 144;
+			
+			spinner = document.createElement('img');
+			spinner.src = 'art/loadspinner.png';
+			spinner.width = 50;
+			spinner.height = 50;
+			
+			drawBG();
+			
+			spinner.onload = function () {
+				var spinnerCanvas = document.createElement('canvas');
+				spinnerCanvas.height = 50;
+				spinnerCanvas.width = 50;
+				
+				spinnerctx = spinnerCanvas.getContext('2d');
+				
+				// translate to the center to rotate properly
+				spinnerctx.translate(spinnerCanvas.width/2, spinnerCanvas.height/2);
+				
+				setInterval(draw, 200);
+			}
+			
+			function draw() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				spinnerctx.translate(spinnerctx.canvas.width/-2, spinnerctx.canvas.height/-2);
+				spinnerctx.clearRect(0, 0, spinnerctx.canvas.width, spinnerctx.canvas.height);
+				spinnerctx.translate(spinnerctx.canvas.width/2, spinnerctx.canvas.height/2);
+				
+				drawBG();
+				
+				spinnerctx.rotate(Math.PI / 180 * 45);
+				
+				spinnerctx.drawImage(spinner, -spinner.width/2, -spinner.height/2);
+				
+				// copy the rotated source
+				ctx.drawImage(spinnerctx.canvas, 
+					canvas.width / 2 - spinnerctx.canvas.width / 2, 
+					canvas.height / 2 - spinnerctx.canvas.height / 2);
+			}
+			
+			function drawBG() {
+				ctx.fillStyle = 'rgb(158, 151, 21)';
+				ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			}
+		</script>
+	</body>
+</html>

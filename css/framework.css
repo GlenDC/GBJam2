@@ -1,0 +1,152 @@
+/* fonts */
+
+@font-face {
+    font-family: 'teachers_pet_sans_serif_bolRg';
+    src: url('../fonts/teacpssb-webfont.eot');
+    src: url('../fonts/teacpssb-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/teacpssb-webfont.woff') format('woff'),
+         url('../fonts/teacpssb-webfont.ttf') format('truetype'),
+         url('../fonts/teacpssb-webfont.svg#teachers_pet_sans_serif_bolRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* main */
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+	font-family: 'teachers_pet_sans_serif_bolRg';
+	font-size: 0.8em;
+}
+
+article {
+	width: 300px;
+	height: 500px;
+	background: url('../art/framework/GameBoy.png') no-repeat;
+	background-position: 3px 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -150px;
+}
+
+footer {
+	font-size: 0.7em;
+	text-align: center;
+	color: #96908e;
+	
+	position: absolute;
+	width: 100%;
+	height: 100px;
+	
+	margin-top: 500px;
+}
+
+footer a {
+	text-decoration: none;
+	text-weight: bold;
+	color: #96908e;
+}
+
+footer a:hover {
+	color: #645c74;
+}
+
+.main-canvas {
+	position: absolute;
+	margin-left: 70px;
+	margin-top: 63px;
+}
+
+/* Buttons Round */
+
+.button-round {
+	position: absolute;
+	width: 34px;
+	height: 34px;
+	background: url('../art/framework/Round_Idle.png') no-repeat;
+	cursor: pointer;
+}
+
+.button-round:hover {
+	cursor: hand;
+	background: url('../art/framework/Round_Hover.png') no-repeat;
+}
+
+#button-A {
+	margin-left: 194px;
+	margin-top: 324px;
+}
+
+#button-B {
+	margin-left: 243px;
+	margin-top: 301px;
+}
+
+/* Buttons Rect */
+
+.button-rect {
+	position: absolute;
+	width: 33px;
+	height: 19px;
+	background: url('../art/framework/Rect_Idle.png') no-repeat;
+	cursor: pointer;
+}
+
+.button-rect:hover {
+	cursor: hand;
+	background: url('../art/framework/Rect_Hover.png') no-repeat;
+}
+
+#button-select {
+	margin-left: 92px;
+	margin-top: 396px;
+}
+
+#button-start {
+	margin-left: 144px;
+	margin-top: 396px;
+}
+
+/* Button Cross */
+
+#button-cross {
+	position: absolute;
+	margin-left: 27px;
+	margin-top: 299px;
+	width: 70px;
+	height: 70px;
+	background: url('../art/framework/Cross_Idle.png') no-repeat;
+}
+
+/* Light */
+
+#gb-light {
+	position: absolute;
+	margin-left: 38px;
+	margin-top: 108px;
+	width: 10px;
+	height: 10px;
+	background: url('../art/framework/Light_On.png') no-repeat;
+}
+
+/* Info (Button) */
+
+#button-info {
+	position: absolute;
+	margin-left: 16px;
+	margin-top: 452px;
+	width: 28px;
+	height: 28px;
+	background: url('../art/framework/Info_Idle.png') no-repeat;
+	cursor: pointer;
+}
+
+#button-info:hover {
+	cursor: hand;
+	background: url('../art/framework/Info_Hover.png') no-repeat;
+}
