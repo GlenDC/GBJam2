@@ -332,11 +332,16 @@
 			function ButtonInfoOver(element)
 			{
 				SetInfoButton(element, 1);
+				if(GameboyIsOn && !GameIsPaused && !ShowInfoHUD)
+				{
+					document.getElementById('info-button-hover-text').style.visibility = 'visible';
+				}
 			}
 			
 			function ButtonInfoOut(element)
 			{
 				SetInfoButton(element, 0);
+				document.getElementById('info-button-hover-text').style.visibility = 'hidden';
 			}
 			
 			function CrossButtonUp(direction,element,is_keyboard)
@@ -509,6 +514,11 @@
 				var infoHUD = document.getElementById('gameboy-help-article');
 				canvas.style.visibility = !is_hidden ? 'hidden' : 'visible';
 				infoHUD.style.visibility = is_hidden ? 'hidden' : 'visible';
+				if(ShowInfoHUD)
+				{
+					var infoHUDText = document.getElementById('info-button-hover-text');
+					infoHUDText.style.visibility = 'hidden';
+				}
 			}
 			
 			function SetGameHidden(is_hidden)
@@ -529,6 +539,7 @@
 			function BrowserStart()
 			{
 				SetGameHidden(true);
+				document.getElementById('info-button-hover-text').style.visibility = 'hidden';
 			}
 			
 			var GameHasStarted = false;
@@ -623,6 +634,8 @@
 			</audio>
 			<audio id=gameboy-audio-button-start src="sounds/ButtonStart.mp3">
 			</audio>
+			
+			<div id=info-button-hover-text>SHOW CONTROLS</div>
 			
 			<img id=gb-light draggable=false class=unselectable src="art/framework/Light_Off.png"/>
 			

@@ -168,3 +168,11 @@ area {
 #button-info:hover {
 	cursor: hand;
 }
+
+#info-button-hover-text {
+	position: absolute;
+	color: #939395;
+	font-size: 0.9em;
+	margin-top : 455px;
+	margin-left: 60px;
+}
