@@ -547,30 +547,33 @@
 			function StartGameBoy()
 			{
 				SetGameHidden(false);
+				LoadPreGameContent();
 				window.setTimeout(function() {
 					if(GameboyIsOn)
 					{
 						document.getElementById('gameboy-audio-start').play();
 					}
-				}, 1000);
+				}, 650);
 				window.setTimeout(function() {
 					if(GameboyIsOn)
 					{
 						StartTheGame();
 						GameHasStarted = true;
 					}
-				}, 1500);
+				}, 2350);
 			}
 			
 			function StartTheGame()
 			{
 				GameIsPaused = false;
+				UnloadPreGameContent();
 				LoadGameContent();
 			}
 			
 			function GameStop()
 			{
-				UnloadGameGameContent();
+				UnloadPreGameContent();
+				UnloadGameContent();
 				SetGameHidden(true);
 				GameIsPaused = true;
 				GameHasStarted = false;
@@ -713,8 +716,7 @@
 		<script>
 			var canvas = document.querySelector('canvas');
 			var ctx = canvas.getContext('2d');
-			spinnerctx = null, spinnerCanvas = null, spinner = null,
-				intGameDraw = null, intCustomText = null;
+			intCustomText = null, logo = null, logo_y = -45;
 			
 			ctx.font = 'italic 400 14px/2 helvetica neue, sans-serif';
 			
@@ -722,38 +724,62 @@
 			canvas.height = 144;
 			
 			drawBG();
-			
-			function LoadGameContent()
-			{
-				spinner = document.createElement('img');
-				spinner.src = 'art/loadspinner.png';
-				spinner.width = 50;
-				spinner.height = 50;
+
+			function pretick() {
+				var now = Date.now();
+				var dt = now - lastUpdate;
+				lastUpdate = now;
 				
-				spinner.onload = function () {
-					spinnerCanvas = document.createElement('canvas');
-					spinnerCanvas.height = 50;
-					spinnerCanvas.width = 50;
-					
-					spinnerctx = spinnerCanvas.getContext('2d');
-					
-					// translate to the center to rotate properly
-					spinnerctx.translate(spinnerCanvas.width/2, spinnerCanvas.height/2);
-					
-					intGameDraw = setInterval(draw, 200);
-				}
-				intCustomText = setInterval(stt, 650);
+				dt /= 100;
+
+				preupdate(dt);
+				prerender(dt);
 			}
 			
-			function UnloadGameGameContent()
+			function tick() {
+				var now = Date.now();
+				var dt = now - lastUpdate;
+				lastUpdate = now;
+				
+				dt /= 100;
+
+				update(dt);
+				render(dt);
+			}
+			
+			function LoadPreGameContent()
 			{
-				delete window.spinner;
-				delete window.spinnerctx;
-				delete window.spinnerCanvas;
-				clearInterval(intGameDraw);
-				clearInterval(intCustomText);
-				showTempText = false;
+				logo = document.createElement('img');
+				logo.src = 'art/framework/Gameboy_Logo.png';
+				logo.width = 160;
+				logo.height = 17;
+				
+				lastUpdate = Date.now();
+				myInterval = setInterval(pretick, 0);
+			}
+			
+			function LoadGameContent()
+			{	
+				intCustomText = setInterval(stt, 650);
+				lastUpdate = Date.now();
+				clearInterval(myInterval);
+				myInterval = setInterval(tick, 0);
+			}
+			
+			function UnloadPreGameContent()
+			{
 				drawBG();
+				delete window.logo;
+				logo_y = -45;
+				
+			}
+			
+			function UnloadGameContent()
+			{
+				drawBG();
+				clearInterval(intCustomText);
+				clearInterval(myInterval);
+				showTempText = false;
 			}
 			
 			var showTempText = false;
@@ -763,32 +789,35 @@
 				showTempText = !showTempText;
 			}
 			
-			function draw() {
-				ctx.clearRect(0, 0, canvas.width, canvas.height);
-				spinnerctx.translate(spinnerctx.canvas.width/-2, spinnerctx.canvas.height/-2);
-				spinnerctx.clearRect(0, 0, spinnerctx.canvas.width, spinnerctx.canvas.height);
-				spinnerctx.translate(spinnerctx.canvas.width/2, spinnerctx.canvas.height/2);
-				
-				drawBG();
-				
-				spinnerctx.rotate(Math.PI / 180 * 45);
-				
-				spinnerctx.drawImage(spinner, -spinner.width/2, -spinner.height/2);
-				
-				// copy the rotated source
-				ctx.drawImage(spinnerctx.canvas, 
-					canvas.width / 2 - spinnerctx.canvas.width / 2, 
-					canvas.height / 2 - spinnerctx.canvas.height / 2);
+			function preupdate(dt) {
+				if(logo_y < canvas.height / 2.5)
+				{
+					logo_y += dt * 12;
+				}
 			}
 			
-			function drawBG() {
-				ctx.fillStyle = 'rgb(158, 151, 21)';
-				ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			function prerender(dt) {
+				drawBG();
+				ctx.drawImage(logo, 0, logo_y);
+			}
+			
+			function update(dt) {
+			}
+			
+			function render(dt) {
+				drawBG();
 				if(showTempText)
 				{
 					ctx.fillStyle = 'rgb(0, 0, 0)';
 					ctx.fillText("-= NO GAME IS LOADING =-", 12,130);
 				}
+			}
+			
+			
+			function drawBG() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.fillStyle = 'rgb(158, 151, 21)';
+				ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			}
 			
 			BrowserStart();
