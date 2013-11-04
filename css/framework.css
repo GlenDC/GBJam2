@@ -58,8 +58,8 @@ article {
 }
 
 area {
-  display: block;
-  cursor: pointer;
+	display: block;
+	cursor: pointer;
 }
 
 #main-canvas {
@@ -78,6 +78,7 @@ area {
 
     -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
     user-drag: none;
+	cursor: default;
 }
 
 /* Buttons Round */
@@ -175,4 +176,12 @@ area {
 	font-size: 0.9em;
 	margin-top : 455px;
 	margin-left: 60px;
+}
+
+#no-mobile-support-text {
+	position: absolute;
+	color: #9e477c;
+	font-size: 0.55em;
+	margin-left: 105px;
+	margin-top: 5px;
 }
