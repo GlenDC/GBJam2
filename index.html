@@ -543,22 +543,26 @@
 			}
 			
 			var GameHasStarted = false;
+			var GameStartUps = 0;
+			var CurrentStartUp = 0;
 			
 			function StartGameBoy()
 			{
 				SetGameHidden(false);
 				LoadPreGameContent();
-				window.setTimeout(function() {
+				IntroATimeOut = window.setTimeout(function(CurrentStartUp) {
 					if(GameboyIsOn)
 					{
 						document.getElementById('gameboy-audio-start').play();
+						IntroAComplete = true;
 					}
 				}, 650);
-				window.setTimeout(function() {
+				IntroBTimeOut = window.setTimeout(function(CurrentStartUp) {
 					if(GameboyIsOn)
 					{
 						StartTheGame();
 						GameHasStarted = true;
+						IntroBComplete = true;
 					}
 				}, 2350);
 			}
@@ -568,6 +572,8 @@
 				GameIsPaused = false;
 				UnloadPreGameContent();
 				LoadGameContent();
+				clearTimeout(IntroATimeOut);
+				clearTimeout(IntroBTimeOut);
 			}
 			
 			function GameStop()
@@ -577,6 +583,8 @@
 				SetGameHidden(true);
 				GameIsPaused = true;
 				GameHasStarted = false;
+				IntroAComplete = false;
+				IntroBComplete = false;
 			}
 			
 			function SetInfoHiddenIfNeeded()
