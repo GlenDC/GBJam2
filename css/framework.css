@@ -20,6 +20,7 @@ html, body {
     margin: 0;
 	font-family: 'teachers_pet_sans_serif_bolRg';
 	font-size: 0.8em;
+	background: url('../art/BackgroundPattern.png');
 }
 
 article {
@@ -37,7 +38,7 @@ article {
 footer {
 	font-size: 0.7em;
 	text-align: center;
-	color: #96908e;
+	color: black;
 	
 	position: absolute;
 	width: 100%;
@@ -49,11 +50,16 @@ footer {
 footer a {
 	text-decoration: none;
 	text-weight: bold;
-	color: #96908e;
+	color: black;
 }
 
 footer a:hover {
 	color: #645c74;
+}
+
+area {
+  display: block;
+  cursor: pointer;
 }
 
 .main-canvas {
@@ -68,21 +74,19 @@ footer a:hover {
 	position: absolute;
 	width: 34px;
 	height: 34px;
-	background: url('../art/framework/Round_Idle.png') no-repeat;
 	cursor: pointer;
 }
 
 .button-round:hover {
 	cursor: hand;
-	background: url('../art/framework/Round_Hover.png') no-repeat;
 }
 
-#button-A {
+#button-B {
 	margin-left: 194px;
 	margin-top: 324px;
 }
 
-#button-B {
+#button-A {
 	margin-left: 243px;
 	margin-top: 301px;
 }
@@ -93,13 +97,19 @@ footer a:hover {
 	position: absolute;
 	width: 33px;
 	height: 19px;
-	background: url('../art/framework/Rect_Idle.png') no-repeat;
 	cursor: pointer;
 }
 
 .button-rect:hover {
 	cursor: hand;
-	background: url('../art/framework/Rect_Hover.png') no-repeat;
+}
+
+.button {
+	cursor: pointer;
+}
+
+.button:hover {
+	cursor: hand;
 }
 
 #button-select {
@@ -120,7 +130,6 @@ footer a:hover {
 	margin-top: 299px;
 	width: 70px;
 	height: 70px;
-	background: url('../art/framework/Cross_Idle.png') no-repeat;
 }
 
 /* Light */
@@ -131,7 +140,6 @@ footer a:hover {
 	margin-top: 108px;
 	width: 10px;
 	height: 10px;
-	background: url('../art/framework/Light_On.png') no-repeat;
 }
 
 /* Info (Button) */
@@ -142,11 +150,9 @@ footer a:hover {
 	margin-top: 452px;
 	width: 28px;
 	height: 28px;
-	background: url('../art/framework/Info_Idle.png') no-repeat;
 	cursor: pointer;
 }
 
 #button-info:hover {
 	cursor: hand;
-	background: url('../art/framework/Info_Hover.png') no-repeat;
 }

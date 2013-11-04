@@ -4,26 +4,529 @@
 		<meta encoding=utf-8>
 		<title>GBJam 2.0</title>
 		<link rel="stylesheet" type="text/css" href="css/framework.css">
+		
+		<script type="text/javascript">		
+			var	CrossIdle = new Image(70,70),
+				CrossDownDown = new Image(70,70),
+				CrossDownHover = new Image(70,70),
+				CrossUpDown = new Image(70,70),
+				CrossUpHover = new Image(70,70),
+				CrossLeftDown = new Image(70,70),
+				CrossLeftHover = new Image(70,70),
+				CrossRightDown = new Image(70,70),
+				CrossRightHover = new Image(70,70),
+				InfoDown = new Image(28,28),
+				InfoHover = new Image(28,28),
+				InfoIdle = new Image(28,28),
+				RoundDown = new Image(34,34),
+				RoundHover = new Image(34,34),
+				RoundIdle = new Image(34,34),
+				RectDown = new Image(33,19),
+				RectHover = new Image(33,19),
+				RectIdle = new Image(33,19),
+				LightOn = new Image(10,10),
+				LightOff = new Image(10,10);
+			
+			CrossIdle.src = "art/framework/Cross_Idle.png";
+			CrossDownDown.src = "art/framework/Cross_Down_Down.png";
+			CrossDownHover.src = "art/framework/Cross_Down_Hover.png";
+			CrossUpDown.src = "art/framework/Cross_Up_Down.png";
+			CrossUpHover.src = "art/framework/Cross_Up_Hover.png";
+			CrossLeftDown.src = "art/framework/Cross_Left_Down.png";
+			CrossLeftHover.src = "art/framework/Cross_Left_Hover.png";
+			CrossRightDown.src = "art/framework/Cross_Right_Down.png";
+			CrossRightHover.src = "art/framework/Cross_Right_Hover.png";
+			InfoDown.src = "art/framework/Info_Down.png";
+			InfoHover.src = "art/framework/Info_Hover.png";
+			InfoIdle.src = "art/framework/Info_Idle.png";
+			RoundDown.src = "art/framework/Round_Down.png";
+			RoundHover.src = "art/framework/Round_Hover.png";
+			RoundIdle.src = "art/framework/Round_Idle.png";
+			RectDown.src = "art/framework/Rect_Down.png";
+			RectHover.src = "art/framework/Rect_Hover.png";
+			RectIdle.src = "art/framework/Rect_Idle.png";
+			LightOn.src = "art/framework/Light_On.png";
+			LightOff.src = "art/framework/Light_Off.png";
+		
+			function SetCrossButtonHoverState(direction)
+			{
+				var img = document.getElementById("button-cross-img");
+				switch(direction)
+				{
+					case 0:
+						img.src = CrossUpHover.src;
+						break;
+					case 1:
+						img.src = CrossLeftHover.src;
+						break;
+					case 2:
+						img.src = CrossRightHover.src;
+						break;
+					case 3:
+						img.src = CrossDownHover.src;
+						break;
+				}
+			}
+			
+			function CrossButtonOver(direction,element)
+			{
+				element.style.cursor = "pointer";
+				SetCrossButtonHoverState(direction);
+			}
+			
+			var ButtonLeftIsDown = false;
+			var ButtonRightIsDown = false;
+			var ButtonUpIsDown = false;
+			var ButtonDownIsDown = false;
+			
+			function CrossButtonDown(direction,element)
+			{
+				var img = document.getElementById("button-cross-img");
+				switch(direction)
+				{
+					case 0:
+						img.src = CrossUpDown.src;
+						if(!ButtonUpIsDown)
+						{
+							ButtonUpIsDown = true;
+							document.getElementById("gameboy-audio-hard").play();
+						}
+						break;
+					case 1:
+						img.src = CrossLeftDown.src;
+						if(!ButtonLeftIsDown)
+						{
+							ButtonLeftIsDown = true;
+							document.getElementById("gameboy-audio-hard").play();
+						}
+						break;
+					case 2:
+						img.src = CrossRightDown.src
+						if(!ButtonRightIsDown)
+						{
+							ButtonRightIsDown = true;
+							document.getElementById("gameboy-audio-hard").play();
+						}
+						break;
+					case 3:
+						img.src = CrossDownDown.src;
+						if(!ButtonDownIsDown)
+						{
+							ButtonDownIsDown = true;
+							document.getElementById("gameboy-audio-hard").play();
+						}
+						break;
+				}
+			}
+			
+			function SetRoundButton(element, state)
+			{
+				switch(state)
+				{
+					case 0:
+						element.src = RoundIdle.src;
+						break;
+					case 1:
+						element.src = RoundHover.src
+						break;
+					case 2:
+						element.src = RoundDown.src;
+						break;
+				}
+			}
+			
+			function SetRectButton(element, state)
+			{
+				switch(state)
+				{
+					case 0:
+						element.src = RectIdle.src;
+						break;
+					case 1:
+						element.src = RectHover.src;
+						break;
+					case 2:
+						element.src = RectDown.src;
+						break;
+				}
+			}
+			
+			function SetInfoButton(element, state)
+			{
+				switch(state)
+				{
+					case 0:
+						element.src = InfoIdle.src;
+						break;
+					case 1:
+						element.src = InfoHover.src;
+						break;
+					case 2:
+						element.src = InfoDown.src;
+						break;
+				}
+			}
+			
+			var ButtonAIsDown = false;
+			
+			function ButtonAUp(element, is_keyboard)
+			{
+				SetRoundButton(element, is_keyboard == true ? 0 : 1);
+				ButtonAIsDown = false;
+			}
+			
+			function ButtonADown(element)
+			{
+				SetRoundButton(element, 2);
+				if(!ButtonAIsDown)
+				{
+					ButtonAIsDown = true;
+					document.getElementById("gameboy-audio-hard").play();
+				}
+			}
+			
+			function ButtonAOver(element)
+			{
+				SetRoundButton(element, 1);
+			}
+			
+			function ButtonAOut(element)
+			{
+				SetRoundButton(element, 0);
+			}
+			
+			var ButtonBIsDown = false;
+			
+			function ButtonBUp(element, is_keyboard)
+			{
+				SetRoundButton(element, is_keyboard ? 0 : 1);
+				ButtonBIsDown = false;
+			}
+			
+			function ButtonBDown(element)
+			{
+				if(!ButtonBIsDown)
+				{
+					ButtonBIsDown = true;
+					document.getElementById("gameboy-audio-hard").play();
+				}
+				SetRoundButton(element, 2);
+			}
+			
+			function ButtonBOver(element)
+			{
+				SetRoundButton(element, 1);
+			}
+			
+			function ButtonBOut(element)
+			{
+				SetRoundButton(element, 0);
+			}
+			
+			var ButtonStartIsDown = false;
+			
+			function ButtonStartUp(element, is_keyboard)
+			{
+				SetRectButton(element, is_keyboard ? 0 : 1);
+				ButtonStartIsDown = false;
+			}
+			
+			function ButtonStartDown(element)
+			{
+				SetRectButton(element, 2);
+				if(!ButtonStartIsDown)
+				{
+					ButtonStartIsDown = true;
+					document.getElementById("gameboy-audio-soft").play();
+				}
+			}
+			
+			function ButtonStartOver(element)
+			{
+				SetRectButton(element, 1);
+			}
+			
+			function ButtonStartOut(element)
+			{
+				SetRectButton(element, 0);
+			}
+			
+			var ButtonSelectIsDown = false;
+			
+			function ButtonSelectUp(element,is_keyboard)
+			{
+				SetRectButton(element, is_keyboard ? 0 : 1);
+				ButtonSelectIsDown = false;
+			}
+			
+			function ButtonSelectDown(element)
+			{
+				SetRectButton(element, 2);
+				if(!ButtonSelectIsDown)
+				{
+					ButtonSelectIsDown = true;
+					document.getElementById("gameboy-audio-soft").play();
+				}
+			}
+			
+			function ButtonSelectOver(element)
+			{
+				SetRectButton(element, 1);
+			}
+			
+			function ButtonSelectOut(element)
+			{
+				SetRectButton(element, 0);
+			}
+			
+			function ButtonStartOut(element)
+			{
+				SetRectButton(element, 0);
+			}
+			
+			var ButtonInfoIsDown = false;
+			
+			function ButtonInfoUp(element,is_keyboard)
+			{
+				SetInfoButton(element, is_keyboard ? 0 : 1);
+				ButtonInfoIsDown = false;
+			}
+			
+			function ButtonInfoDown(element)
+			{
+				SetInfoButton(element, 2);
+				if(!ButtonInfoIsDown)
+				{
+					ButtonInfoIsDown = true;
+					document.getElementById("gameboy-audio-hard").play();
+				}
+			}
+			
+			function ButtonInfoOver(element)
+			{
+				SetInfoButton(element, 1);
+			}
+			
+			function ButtonInfoOut(element)
+			{
+				SetInfoButton(element, 0);
+			}
+			
+			function CrossButtonUp(direction,element,is_keyboard)
+			{
+				switch(direction)
+				{
+					case 3:
+						ButtonDownIsDown = false;
+						break;
+					case 1:
+						ButtonLeftIsDown = false;
+						break;
+					case 2:
+						ButtonRightIsDown = false;
+						break;
+					case 0:
+						ButtonUpIsDown = false;
+						break;
+				}
+				if(is_keyboard)
+				{
+					CrossButtonOut(direction,element);
+				}
+				else
+				{
+					SetCrossButtonHoverState(direction);
+				}
+			}
+			
+			function CrossButtonOut(direction,element)
+			{
+				var img = document.getElementById("button-cross-img");
+				img.src = "art/framework/Cross_Idle.png";
+				element.style.cursor = 'default';
+				switch(direction)
+				{
+					case 3:
+						// down
+						break;
+					case 1:
+						// left
+						break;
+					case 2:
+						// right
+						break;
+					case 0:
+						// up
+						break;
+				}
+			}
+			
+			function SetLight(is_on)
+			{
+				var img = document.getElementById("gb-light");
+				if(is_on == true)
+				{
+					img.src = "art/framework/Light_On.png";
+				}
+				else
+				{
+					img.src = "art/framework/Light_Off.png";
+				}
+			}
+			
+			document.addEventListener('keydown', function(event)
+			{
+				if(event.keyCode == 65 || event.keyCode == 37 || event.keyCode == 81)
+				{
+					CrossButtonDown(1, document.getElementById("button-cross-img"));
+				}
+				else if(event.keyCode == 68 || event.keyCode == 39)
+				{
+					CrossButtonDown(2, document.getElementById("button-cross-img"));
+				}
+				else if(event.keyCode == 87 || event.keyCode == 38 || event.keyCode == 90)
+				{
+					CrossButtonDown(0, document.getElementById("button-cross-img"));
+				}
+				else if(event.keyCode == 83 || event.keyCode == 40)
+				{
+					CrossButtonDown(3, document.getElementById("button-cross-img"));
+				}
+				else if(event.keyCode == 27)
+				{
+					ButtonStartDown(document.getElementById("button-start"))
+				}
+				else if(event.keyCode == 13 || event.keyCode == 32)
+				{
+					ButtonSelectDown(document.getElementById("button-select"))
+				}
+				else if(event.keyCode == 73)
+				{
+					ButtonInfoDown(document.getElementById("button-info"))
+				}
+				else if(event.keyCode == 79)
+				{
+					ButtonBDown(document.getElementById("button-B"))
+				}
+				else if(event.keyCode == 80)
+				{
+					ButtonADown(document.getElementById("button-A"))
+				}
+			});
+
+			document.addEventListener('keyup', function(event)
+			{
+				if(event.keyCode == 65 || event.keyCode == 37 || event.keyCode == 81)
+				{
+					CrossButtonUp(1, document.getElementById("button-cross-img"),true);
+				}
+				else if(event.keyCode == 68 || event.keyCode == 39)
+				{
+					CrossButtonUp(2, document.getElementById("button-cross-img"),true);
+				}
+				else if(event.keyCode == 87 || event.keyCode == 38 || event.keyCode == 90)
+				{
+					CrossButtonUp(0, document.getElementById("button-cross-img"),true);
+				}
+				else if(event.keyCode == 83 || event.keyCode == 40)
+				{
+					CrossButtonUp(3, document.getElementById("button-cross-img"),true);
+				}
+				else if(event.keyCode == 27)
+				{
+					ButtonStartUp(document.getElementById("button-start"),true)
+				}
+				else if(event.keyCode == 13 || event.keyCode == 32)
+				{
+					ButtonSelectUp(document.getElementById("button-select"),true)
+				}
+				else if(event.keyCode == 73)
+				{
+					ButtonInfoUp(document.getElementById("button-info"),true)
+				}
+				else if(event.keyCode == 79)
+				{
+					ButtonBUp(document.getElementById("button-B"),true)
+				}
+				else if(event.keyCode == 80)
+				{
+					ButtonAUp(document.getElementById("button-A"),true)
+				}
+			});
+		</script>
 	</head>
 	<body>
 		<article>
 			<canvas class=main-canvas></canvas>
 			
-			<div id=gb-light></div>
+			<audio id=gameboy-audio-hard src="sounds/ButtonHardClick.mp3">
+			</audio>
+			<audio id=gameboy-audio-soft src="sounds/ButtonSoftClick.mp3">
+			</audio>
 			
-			<div class=button-round id=button-A></div>
-			<div class=button-round id=button-B></div>
+			<img id=gb-light src="art/framework/Light_Off.png"/>
 			
-			<div class=button-rect id=button-select></div>
-			<div class=button-rect id=button-start></div>
+			<img class=button-round id=button-A src="art/framework/Round_Idle.png" 
+				onmouseover="ButtonAOver(this)"
+				onmouseout="ButtonAOut(this)"
+				onmousedown="ButtonADown(this);SetLight(true);"
+				onmouseup="ButtonAUp(this,false)" />
+			<img class=button-round id=button-B src="art/framework/Round_Idle.png" 
+				onmouseover="ButtonBOver(this)"
+				onmouseout="ButtonBOut(this)"
+				onmousedown="ButtonBDown(this)"
+				onmouseup="ButtonBUp(this,false)" />
 			
-			<div id=button-cross></div>
+			<img class=button-rect id=button-select src="art/framework/Rect_Idle.png" 
+				onmouseover="ButtonSelectOver(this)"
+				onmouseout="ButtonSelectOut(this)"
+				onmousedown="ButtonSelectDown(this)"
+				onmouseup="ButtonSelectUp(this,false)" />
+			<img class=button-rect id=button-start src="art/framework/Rect_Idle.png" 
+				onmouseover="ButtonStartOver(this)"
+				onmouseout="ButtonStartOut(this)"
+				onmousedown="ButtonStartDown(this)"
+				onmouseup="ButtonStartUp(this,false)" />
 			
-			<div id=button-info></div>
+			<div id=button-cross>
+				<img src="art/framework/Cross_Idle.png" usemap="#button-cross-map" id=button-cross-img>
+				<map name=button-cross-map>
+					<area shape=rect
+						onmouseover="CrossButtonOver(0,this)"
+						onmouseout="CrossButtonOut(0,this)"
+						onmousedown="CrossButtonDown(0,this)"
+						onmouseup="CrossButtonUp(0,this,false)"
+						coords="23,0,46,23" alt="Up" />
+					<area shape=rect 
+						onmouseover="CrossButtonOver(1,this)"
+						onmouseout="CrossButtonOut(1,this)"
+						onmousedown="CrossButtonDown(1,this)"
+						onmouseup="CrossButtonUp(1,this,false)"
+						coords="0,23,23,46" alt="Left" />
+					<area shape=rect
+						onmouseover="CrossButtonOver(2,this)"
+						onmouseout="CrossButtonOut(2,this)"
+						onmousedown="CrossButtonDown(2,this)"
+						onmouseup="CrossButtonUp(2,this,false)"
+						coords="46,23,69,46" alt="Right" />
+					<area shape=rect
+						onmouseover="CrossButtonOver(3,this)"
+						onmouseout="CrossButtonOut(3,this)"
+						onmousedown="CrossButtonDown(3,this)"
+						onmouseup="CrossButtonUp(3,this,false)"
+						coords="23,46,46,69" alt="Down" />
+				</map>
+			</div>
+			
+			<img id=button-info src="art/framework/Info_Idle.png" 
+				onmouseover="ButtonInfoOver(this)"
+				onmouseout="ButtonInfoOut(this)"
+				onmousedown="ButtonInfoDown(this)"
+				onmouseup="ButtonInfoUp(this,false)" />
 			
 			<footer>
 				<p>A <a href="http://www.gbjam.net/">GBJam</a> Game Developed By<br/>
-				<a href="http://www.glendc.com/">Glen De Cauwsemaecker</a> &amp; 
+				<a href="http://www.glendc.com/">Glen De Cauwsemaecker</a> and 
 				<a href="http://sg.linkedin.com/pub/tommy-tan-sze-yew/84/605/b23/">Tommy Tan Sze Yew</a>.
 				</p>
 				<p>Latest update @ 
