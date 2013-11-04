@@ -531,6 +531,8 @@
 				SetGameHidden(true);
 			}
 			
+			var GameHasStarted = false;
+			
 			function StartGameBoy()
 			{
 				SetGameHidden(false);
@@ -544,6 +546,7 @@
 					if(GameboyIsOn)
 					{
 						StartTheGame();
+						GameHasStarted = true;
 					}
 				}, 1500);
 			}
@@ -556,8 +559,10 @@
 			
 			function GameStop()
 			{
+				UnloadGameGameContent();
 				SetGameHidden(true);
 				GameIsPaused = true;
+				GameHasStarted = false;
 			}
 			
 			function SetInfoHiddenIfNeeded()
@@ -694,7 +699,10 @@
 		<script>
 			var canvas = document.querySelector('canvas');
 			var ctx = canvas.getContext('2d');
-			var spinnerctx;
+			spinnerctx = null, spinnerCanvas = null, spinner = null,
+				intGameDraw = null, intCustomText = null;
+			
+			ctx.font = 'italic 400 14px/2 helvetica neue, sans-serif';
 			
 			canvas.width = 160;
 			canvas.height = 144;
@@ -709,7 +717,7 @@
 				spinner.height = 50;
 				
 				spinner.onload = function () {
-					var spinnerCanvas = document.createElement('canvas');
+					spinnerCanvas = document.createElement('canvas');
 					spinnerCanvas.height = 50;
 					spinnerCanvas.width = 50;
 					
@@ -718,8 +726,27 @@
 					// translate to the center to rotate properly
 					spinnerctx.translate(spinnerCanvas.width/2, spinnerCanvas.height/2);
 					
-					setInterval(draw, 200);
+					intGameDraw = setInterval(draw, 200);
 				}
+				intCustomText = setInterval(stt, 650);
+			}
+			
+			function UnloadGameGameContent()
+			{
+				delete window.spinner;
+				delete window.spinnerctx;
+				delete window.spinnerCanvas;
+				clearInterval(intGameDraw);
+				clearInterval(intCustomText);
+				showTempText = false;
+				drawBG();
+			}
+			
+			var showTempText = false;
+			
+			function stt()
+			{
+				showTempText = !showTempText;
 			}
 			
 			function draw() {
@@ -743,6 +770,11 @@
 			function drawBG() {
 				ctx.fillStyle = 'rgb(158, 151, 21)';
 				ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+				if(showTempText)
+				{
+					ctx.fillStyle = 'rgb(0, 0, 0)';
+					ctx.fillText("-= NO GAME IS LOADING =-", 12,130);
+				}
 			}
 			
 			BrowserStart();
