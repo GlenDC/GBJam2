@@ -4,6 +4,7 @@
 		<meta encoding=utf-8>
 		<title>GBJam 2.0</title>
 		<link rel="stylesheet" type="text/css" href="css/framework.css">
+		<link rel="stylesheet" type="text/css" href="css/help.css">
 		
 		<script type="text/javascript">		
 			var	CrossIdle = new Image(70,70),
@@ -181,6 +182,7 @@
 				if(!ButtonAIsDown)
 				{
 					ButtonAIsDown = true;
+					SetInfoHiddenIfNeeded();
 					document.getElementById("gameboy-audio-hard").play();
 				}
 			}
@@ -237,6 +239,7 @@
 				if(!ButtonStartIsDown)
 				{
 					ButtonStartIsDown = true;
+					SetInfoHiddenIfNeeded();
 					document.getElementById("gameboy-audio-soft").play();
 				}
 			}
@@ -292,6 +295,8 @@
 				ButtonInfoIsDown = false;
 			}
 			
+			var ShowInfoHUD = false;
+			
 			function ButtonInfoDown(element)
 			{
 				SetInfoButton(element, 2);
@@ -299,6 +304,7 @@
 				{
 					ButtonInfoIsDown = true;
 					document.getElementById("gameboy-audio-hard").play();
+					SetCanvasHidden(ShowInfoHUD);
 				}
 			}
 			
@@ -453,43 +459,98 @@
 					ButtonAUp(document.getElementById("button-A"),true)
 				}
 			});
+			
+			window.addEventListener('touchstart',function(event)
+			{
+				var t = event.touches[0];
+				//window.alert("Touch = { " + t.pageX + ", " + t.pageY + " }");
+			}, false);
+			
+			window.addEventListener('touchend',function(event)
+			{
+			}, false);
+			
+			function SetCanvasHidden(is_hidden)
+			{
+				ShowInfoHUD = !is_hidden;
+				var canvas = document.getElementById('main-canvas');
+				var infoHUD = document.getElementById('gameboy-help-article');
+				canvas.style.visibility = !is_hidden ? 'hidden' : 'visible';
+				infoHUD.style.visibility = is_hidden ? 'hidden' : 'visible';
+			}
+			
+			function SetInfoHiddenIfNeeded()
+			{
+				if(ShowInfoHUD)
+				{
+					SetCanvasHidden(ShowInfoHUD);
+				}
+			}
+			
+			function GameStart()
+			{
+				// temp: set canvas hidden: false
+				SetCanvasHidden(true);
+			}
+			
 		</script>
 	</head>
 	<body>
 		<article>
-			<canvas class=main-canvas></canvas>
+			<!-- Info HUD article -->
+			<article id=gameboy-help-article>
+				<header id=help-header>-= CONTROLS =-</header>
+				<ul>
+					<li><img src="art/framework/help-cross.png" class=unselectable/>
+						move &lt;ARROWS&gt;</li>
+					<li><img src="art/framework/help-a.png" class=unselectable/>
+						shoot &lt;W&gt; or &lt;Z&gt;</li>
+					<li><img src="art/framework/help-b.png" class=unselectable/>
+						jump &lt;X&gt;</li>
+					<li><img src="art/framework/help-l.png" class=unselectable/>
+						pause &lt;ENTER&gt;</li>
+					<li><img src="art/framework/help-r.png" class=unselectable/>
+						special &lt;SPACE&gt;</li>
+				</uL>
+				<footer id=help-footer>Press <div class=help-control-text>&lt;START&gt;</div> or 
+					<div class=help-control-text>&lt;A&gt;</div><br/>
+					to return to the game.</footer>
+			</article>
+			
+			<!-- Canvas for all game content -->
+			<canvas id=main-canvas></canvas>
 			
 			<audio id=gameboy-audio-hard src="sounds/ButtonHardClick.mp3">
 			</audio>
 			<audio id=gameboy-audio-soft src="sounds/ButtonSoftClick.mp3">
 			</audio>
 			
-			<img id=gb-light src="art/framework/Light_Off.png"/>
+			<img id=gb-light draggable=false class=unselectable src="art/framework/Light_Off.png"/>
 			
-			<img class=button-round id=button-A src="art/framework/Round_Idle.png" 
+			<img class=button-round id=button-A draggable=false class=unselectable class=unselectable src="art/framework/Round_Idle.png" 
 				onmouseover="ButtonAOver(this)"
 				onmouseout="ButtonAOut(this)"
 				onmousedown="ButtonADown(this);SetLight(true);"
 				onmouseup="ButtonAUp(this,false)" />
-			<img class=button-round id=button-B src="art/framework/Round_Idle.png" 
+			<img class=button-round id=button-B draggable=false class=unselectable src="art/framework/Round_Idle.png" 
 				onmouseover="ButtonBOver(this)"
 				onmouseout="ButtonBOut(this)"
 				onmousedown="ButtonBDown(this)"
 				onmouseup="ButtonBUp(this,false)" />
 			
-			<img class=button-rect id=button-select src="art/framework/Rect_Idle.png" 
+			<img class=button-rect id=button-select draggable=false class=unselectable src="art/framework/Rect_Idle.png" 
 				onmouseover="ButtonSelectOver(this)"
 				onmouseout="ButtonSelectOut(this)"
 				onmousedown="ButtonSelectDown(this)"
 				onmouseup="ButtonSelectUp(this,false)" />
-			<img class=button-rect id=button-start src="art/framework/Rect_Idle.png" 
+			<img class=button-rect id=button-start draggable=false class=unselectable src="art/framework/Rect_Idle.png" 
 				onmouseover="ButtonStartOver(this)"
 				onmouseout="ButtonStartOut(this)"
 				onmousedown="ButtonStartDown(this)"
 				onmouseup="ButtonStartUp(this,false)" />
 			
 			<div id=button-cross>
-				<img src="art/framework/Cross_Idle.png" usemap="#button-cross-map" id=button-cross-img>
+				<img src="art/framework/Cross_Idle.png" draggable=false usemap="#button-cross-map" id=button-cross-img class=unselectable>
 				<map name=button-cross-map>
 					<area shape=rect
 						onmouseover="CrossButtonOver(0,this)"
@@ -518,19 +579,19 @@
 				</map>
 			</div>
 			
-			<img id=button-info src="art/framework/Info_Idle.png" 
+			<img id=button-info class=unselectable draggable=false src="art/framework/Info_Idle.png" 
 				onmouseover="ButtonInfoOver(this)"
 				onmouseout="ButtonInfoOut(this)"
 				onmousedown="ButtonInfoDown(this)"
 				onmouseup="ButtonInfoUp(this,false)" />
 			
-			<footer>
-				<p>A <a href="http://www.gbjam.net/">GBJam</a> Game Developed By<br/>
+			<footer id=website-footer>
+				<p>A <a href="http://www.gbjam.net/">GBJam</a> HTML5 Game Developed By<br/>
 				<a href="http://www.glendc.com/">Glen De Cauwsemaecker</a> and 
 				<a href="http://sg.linkedin.com/pub/tommy-tan-sze-yew/84/605/b23/">Tommy Tan Sze Yew</a>.
 				</p>
 				<p>Latest update @ 
-					<time datetime="20013-11-3">3<sup>th</sup> November, 2013</time>
+					<time datetime="20013-11-4">4<sup>th</sup> November, 2013</time>
 				</p>
 			</footer>
 		</article>
@@ -586,6 +647,8 @@
 				ctx.fillStyle = 'rgb(158, 151, 21)';
 				ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			}
+			
+			GameStart();
 		</script>
 	</body>
 </html>

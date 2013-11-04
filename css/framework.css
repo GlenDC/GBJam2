@@ -35,7 +35,7 @@ article {
     margin-left: -150px;
 }
 
-footer {
+#website-footer {
 	font-size: 0.7em;
 	text-align: center;
 	color: black;
@@ -47,13 +47,13 @@ footer {
 	margin-top: 500px;
 }
 
-footer a {
+#website-footer  a {
 	text-decoration: none;
 	text-weight: bold;
 	color: black;
 }
 
-footer a:hover {
+#website-footer  a:hover {
 	color: #645c74;
 }
 
@@ -62,10 +62,22 @@ area {
   cursor: pointer;
 }
 
-.main-canvas {
+#main-canvas {
 	position: absolute;
 	margin-left: 70px;
 	margin-top: 63px;
+}
+
+.unselectable {
+    /* For Opera and <= IE9, we need to add unselectable="on" attribute onto each element */
+    /* Check this site for more details: http://help.dottoro.com/lhwdpnva.php */
+    -moz-user-select: none; /* These user-select properties are inheritable, used to prevent text selection */
+    -webkit-user-select: none;
+    -ms-user-select: none; /* From IE10 only */
+    user-select: none; /* Not valid CSS yet, as of July 2012 */
+
+    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+    user-drag: none;
 }
 
 /* Buttons Round */
