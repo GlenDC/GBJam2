@@ -406,7 +406,47 @@
 				}
 			}
 			
+			var HoverOverPowerButton = false;
+			
 			var EscapeButtonIsDown = false;
+			
+			function SetPowerButtonOver(elem)
+			{
+				HoverOverPowerButton = true;
+				SetPowerButtonState(elem);
+			}
+			
+			function SetPowerButtonOut(elem)
+			{
+				HoverOverPowerButton = false;
+				SetPowerButtonState(elem);
+			}
+			
+			function SetPowerButtonState(element)
+			{
+				if(GameboyIsOn)
+				{
+					if(HoverOverPowerButton)
+					{
+						element.src = 'art/framework/PowerButtonOn_Hover.png';
+					}
+					else
+					{
+						element.src = 'art/framework/PowerButtonOn_Idle.png';
+					}
+				}
+				else
+				{
+					if(HoverOverPowerButton)
+					{
+						element.src = 'art/framework/PowerButtonOff_Hover.png';
+					}
+					else
+					{
+						element.src = 'art/framework/PowerButtonOff_Idle.png';
+					}
+				}
+			}
 			
 			document.addEventListener('keydown', function(event)
 			{
@@ -539,6 +579,7 @@
 			function BrowserStart()
 			{
 				SetGameHidden(true);
+				StartPowerButtonBlinking();
 				document.getElementById('info-button-hover-text').style.visibility = 'hidden';
 			}
 			
@@ -546,8 +587,35 @@
 			var GameStartUps = 0;
 			var CurrentStartUp = 0;
 			
+			var GamebuttonPowerBlink = false;
+			
+			function StartPowerButtonBlinking()
+			{
+				BlinkInterval = setInterval(ButtonBlinking, 300);
+			}
+			
+			function ButtonBlinking()
+			{
+				GamebuttonPowerBlink = !GamebuttonPowerBlink;
+				var bp = document.getElementById("button-P");
+				if(GamebuttonPowerBlink)
+				{
+					bp.src = 'art/framework/PowerButtonOff_Blink.png';
+				}
+				else
+				{
+					bp.src = 'art/framework/PowerButtonOff_Idle.png';
+				}
+			}
+			
+			function StopPowerButtonBlinking()
+			{
+				clearInterval(BlinkInterval);
+			}
+			
 			function StartGameBoy()
 			{
+				StopPowerButtonBlinking();
 				SetGameHidden(false);
 				LoadPreGameContent();
 				IntroATimeOut = window.setTimeout(function(CurrentStartUp) {
@@ -578,6 +646,7 @@
 			
 			function GameStop()
 			{
+				StartPowerButtonBlinking();
 				UnloadPreGameContent();
 				UnloadGameContent();
 				SetGameHidden(true);
@@ -608,6 +677,7 @@
 				{
 					GameStop();
 				}
+				SetPowerButtonState(document.getElementById("button-P"));
 			}
 			
 		</script>
@@ -615,6 +685,16 @@
 	<body>
 		<article>
 			<!-- Info HUD article -->
+			
+			<img id=button-P draggable=false class=unselectable
+				class=unselectable src="art/framework/PowerButtonOff_Idle.png" 
+				onmouseover="SetPowerButtonOver(this);StopPowerButtonBlinking();"
+				onmouseout="SetPowerButtonOut(this)"
+				onmousedown="GameSwitch()"
+				/>
+			<img src="art/framework/GameBoy.png" id=gameboy-img 
+				draggable=false class=unselectable />
+			
 			<article id=gameboy-help-article>
 				<header id=help-header>-= CONTROLS =-</header>
 				<ul>
@@ -758,7 +838,15 @@
 			function LoadPreGameContent()
 			{
 				logo = document.createElement('img');
-				logo.src = 'art/framework/Gameboy_Logo.png';
+				var rnd = Math.floor((Math.random()*10)+1);
+				if(rnd < 4)
+				{
+					logo.src = 'art/framework/Gameboy_LogoCrap.png';
+				}
+				else
+				{
+					logo.src = 'art/framework/Gameboy_Logo.png';
+				}
 				logo.width = 160;
 				logo.height = 17;
 				
@@ -820,7 +908,6 @@
 					ctx.fillText("-= NO GAME IS LOADING =-", 12,130);
 				}
 			}
-			
 			
 			function drawBG() {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);

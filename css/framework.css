@@ -23,10 +23,15 @@ html, body {
 	background: url('../art/BackgroundPattern.png');
 }
 
+#gameboy-img {
+	position: absolute;
+	z-index: 5;
+	margin-left: 3px;
+}
+
 article {
 	width: 300px;
 	height: 500px;
-	background: url('../art/framework/GameBoy.png') no-repeat;
 	background-position: 3px 0px;
     position: absolute;
     top: 50%;
@@ -66,6 +71,7 @@ area {
 	position: absolute;
 	margin-left: 70px;
 	margin-top: 63px;
+	z-index: 10;
 }
 
 .unselectable {
@@ -88,6 +94,7 @@ area {
 	width: 34px;
 	height: 34px;
 	cursor: pointer;
+	z-index: 10;
 }
 
 .button-round:hover {
@@ -111,6 +118,7 @@ area {
 	width: 33px;
 	height: 19px;
 	cursor: pointer;
+	z-index: 10;
 }
 
 .button-rect:hover {
@@ -143,6 +151,7 @@ area {
 	margin-top: 299px;
 	width: 70px;
 	height: 70px;
+	z-index: 10;
 }
 
 /* Light */
@@ -153,6 +162,17 @@ area {
 	margin-top: 108px;
 	width: 10px;
 	height: 10px;
+	z-index: 10;
+}
+
+/* Power Button */
+
+#button-P {
+	position: absolute;
+	margin-left: 45px;
+	margin-top: -23px;
+	z-index: 0;
+	cursor: pointer;
 }
 
 /* Info (Button) */
@@ -164,6 +184,7 @@ area {
 	width: 28px;
 	height: 28px;
 	cursor: pointer;
+	z-index: 10;
 }
 
 #button-info:hover {
@@ -176,6 +197,7 @@ area {
 	font-size: 0.9em;
 	margin-top : 455px;
 	margin-left: 60px;
+	z-index: 10;
 }
 
 #no-mobile-support-text {
@@ -184,4 +206,5 @@ area {
 	font-size: 0.55em;
 	margin-left: 105px;
 	margin-top: 5px;
+	z-index: 10;
 }

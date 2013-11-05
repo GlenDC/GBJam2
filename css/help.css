@@ -7,6 +7,7 @@
 	display: block;
 	background: #9E9715;
 	font-size: 0.5em;
+	z-index: 10;
 }
 
 #help-footer, #help-header {
