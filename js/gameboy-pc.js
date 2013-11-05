@@ -1,24 +1,3 @@
-var	CrossIdle = new Image(70,70),
-	CrossDownDown = new Image(70,70),
-	CrossDownHover = new Image(70,70),
-	CrossUpDown = new Image(70,70),
-	CrossUpHover = new Image(70,70),
-	CrossLeftDown = new Image(70,70),
-	CrossLeftHover = new Image(70,70),
-	CrossRightDown = new Image(70,70),
-	CrossRightHover = new Image(70,70),
-	InfoDown = new Image(28,28),
-	InfoHover = new Image(28,28),
-	InfoIdle = new Image(28,28),
-	RoundDown = new Image(34,34),
-	RoundHover = new Image(34,34),
-	RoundIdle = new Image(34,34),
-	RectDown = new Image(33,19),
-	RectHover = new Image(33,19),
-	RectIdle = new Image(33,19),
-	LightOn = new Image(10,10),
-	LightOff = new Image(10,10);
-	
 var GameIsPaused = true;
 var GameboyIsOn = false;
 var GameHasStarted = false;
@@ -37,27 +16,6 @@ var EscapeButtonIsDown = false;
 var ShowInfoHUD = false;
 var HoverOverPowerButton = false;
 var GamebuttonPowerBlink = false;
-
-CrossIdle.src = "art/framework/Cross_Idle.png";
-CrossDownDown.src = "art/framework/Cross_Down_Down.png";
-CrossDownHover.src = "art/framework/Cross_Down_Hover.png";
-CrossUpDown.src = "art/framework/Cross_Up_Down.png";
-CrossUpHover.src = "art/framework/Cross_Up_Hover.png";
-CrossLeftDown.src = "art/framework/Cross_Left_Down.png";
-CrossLeftHover.src = "art/framework/Cross_Left_Hover.png";
-CrossRightDown.src = "art/framework/Cross_Right_Down.png";
-CrossRightHover.src = "art/framework/Cross_Right_Hover.png";
-InfoDown.src = "art/framework/Info_Down.png";
-InfoHover.src = "art/framework/Info_Hover.png";
-InfoIdle.src = "art/framework/Info_Idle.png";
-RoundDown.src = "art/framework/Round_Down.png";
-RoundHover.src = "art/framework/Round_Hover.png";
-RoundIdle.src = "art/framework/Round_Idle.png";
-RectDown.src = "art/framework/Rect_Down.png";
-RectHover.src = "art/framework/Rect_Hover.png";
-RectIdle.src = "art/framework/Rect_Idle.png";
-LightOn.src = "art/framework/Light_On.png";
-LightOff.src = "art/framework/Light_Off.png";
 
 function SetCrossButtonHoverState(direction)
 {
@@ -364,7 +322,7 @@ function CrossButtonUp(direction,element,is_keyboard)
 function CrossButtonOut(direction,element)
 {
 	var img = document.getElementById("button-cross-img");
-	img.src = "art/framework/Cross_Idle.png";
+	img.src = CrossIdle.src;
 	element.style.cursor = 'default';
 	switch(direction)
 	{
@@ -388,11 +346,11 @@ function SetLight(is_on)
 	var img = document.getElementById("gb-light");
 	if(is_on == true)
 	{
-		img.src = "art/framework/Light_On.png";
+		img.src = LightOn.src;
 	}
 	else
 	{
-		img.src = "art/framework/Light_Off.png";
+		img.src = LightOff.src;
 	}
 }
 
@@ -414,22 +372,22 @@ function SetPowerButtonState(element)
 	{
 		if(HoverOverPowerButton)
 		{
-			element.src = 'art/framework/PowerButtonOn_Hover.png';
+			element.src = PowerOnHover.src;
 		}
 		else
 		{
-			element.src = 'art/framework/PowerButtonOn_Idle.png';
+			element.src = PowerOnIdle.src;
 		}
 	}
 	else
 	{
 		if(HoverOverPowerButton)
 		{
-			element.src = 'art/framework/PowerButtonOff_Hover.png';
+			element.src = PowerOffHover.src;
 		}
 		else
 		{
-			element.src = 'art/framework/PowerButtonOff_Idle.png';
+			element.src = PowerOffIdle.src;
 		}
 	}
 }
@@ -580,11 +538,11 @@ function ButtonBlinking()
 	var bp = document.getElementById("button-P");
 	if(GamebuttonPowerBlink)
 	{
-		bp.src = 'art/framework/PowerButtonOff_Blink.png';
+		bp.src = PowerOffBlink.src;
 	}
 	else
 	{
-		bp.src = 'art/framework/PowerButtonOff_Idle.png';
+		bp.src = PowerOffIdle.src;
 	}
 }
 

@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="css/help.css">	
 		<link rel="shortcut icon" href="art/favicon.ico" />
 	
+		<script><?php include_once 'js/framework-images.php'; ?></script>
 		<script src="js/gameboy-pc.js"></script>
 		
 		<?php 
