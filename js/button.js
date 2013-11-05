@@ -91,7 +91,7 @@ function ButtonSwitch
 			if(this.downCB != null) this.downCB();
 			if(this.audio != null)
 			{
-				document.getElementById(this.audio).play();
+				AudioManager.playGameboy(this.audio);
 			}
 		}
 	}
@@ -163,7 +163,7 @@ function Button
 			if(this.downCB != null) this.downCB();
 			if(this.audio != null)
 			{
-				document.getElementById(this.audio).play();
+				AudioManager.playGameboy(this.audio);
 			}
 		}
 	}

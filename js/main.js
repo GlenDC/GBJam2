@@ -6,9 +6,9 @@ document.getElementsByTagName('script')[0].parentNode.appendChild(gamescript);
    Applies to everything that happens before the game starts. 
   -------------------------------------------------------------
 */
-
+	
 function LoadPreGameContent()
-{
+{	
 	logo = document.createElement('img');
 	var rnd = Math.floor((Math.random()*10)+1);
 	if(rnd < 4)

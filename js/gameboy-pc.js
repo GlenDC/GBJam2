@@ -18,7 +18,7 @@ btnscript.onload = function()
 {
 	btnA = new Button("button-A", RoundIdle.src, 
 		RoundHover.src, RoundDown.src);
-	btnA.audio = "gameboy-audio-hard";
+	btnA.audio = "ButtonHardClick.mp3";
 	btnA.downCB = function()
 	{
 		SetInfoHiddenIfNeeded();
@@ -26,11 +26,11 @@ btnscript.onload = function()
 		
 	btnB = new Button("button-B", RoundIdle.src, 
 		RoundHover.src, RoundDown.src);
-	btnB.audio = "gameboy-audio-hard";
+	btnB.audio = "ButtonHardClick.mp3";
 		
 	btnStart = new Button("button-start", RectIdle.src, 
 		RectHover.src, RectDown.src);
-	btnStart.audio = "gameboy-audio-soft";
+	btnStart.audio = "ButtonSoftClick.mp3";
 	btnStart.downCB = function()
 	{
 		SetInfoHiddenIfNeeded();
@@ -38,27 +38,27 @@ btnscript.onload = function()
 		
 	btnSelect = new Button("button-select", RectIdle.src, 
 		RectHover.src, RectDown.src);
-	btnSelect.audio = "gameboy-audio-soft";
+	btnSelect.audio = "ButtonSoftClick.mp3";
 		
 	btnUp = new Button("button-cross-img", CrossIdle.src, 
 		CrossUpHover.src, CrossUpDown.src);
-	btnUp.audio = "gameboy-audio-hard";
+	btnUp.audio = "ButtonHardClick.mp3";
 		
 	btnDown = new Button("button-cross-img", CrossIdle.src, 
 		CrossDownHover.src, CrossDownDown.src);
-	btnDown.audio = "gameboy-audio-hard";
+	btnDown.audio = "ButtonHardClick.mp3";
 		
 	btnRight = new Button("button-cross-img", CrossIdle.src, 
 		CrossRightHover.src, CrossRightDown.src);
-	btnRight.audio = "gameboy-audio-hard";
+	btnRight.audio = "ButtonHardClick.mp3";
 		
 	btnLeft = new Button("button-cross-img", CrossIdle.src, 
 		CrossLeftHover.src, CrossLeftDown.src);
-	btnLeft.audio = "gameboy-audio-hard";
+	btnLeft.audio = "ButtonHardClick.mp3";
 		
 	btnInfo = new Button("button-info", InfoIdle.src,
 		InfoHover.src, InfoDown.src);
-	btnInfo.audio = "gameboy-audio-soft";
+	btnInfo.audio = "ButtonSoftClick.mp3";
 	btnInfo.downCB = function()
 	{
 		SetInfoHUDHidden(ShowInfoHUD);
@@ -67,7 +67,7 @@ btnscript.onload = function()
 	btnPower = new ButtonSwitch("button-P", PowerOffIdle.src,
 		PowerOffHover.src, PowerOnIdle.src, PowerOnHover.src);
 	btnPower.alwaysActive = true;
-	btnPower.audio = "gameboy-audio-button-start";
+	btnPower.audio = "ButtonStart.mp3";
 	btnPower.downCB = function() 
 	{
 		GameboyIsOn = !GameboyIsOn;
@@ -262,7 +262,7 @@ function StartGameBoy()
 	IntroATimeOut = window.setTimeout(function() {
 		if(GameboyIsOn)
 		{
-			document.getElementById('gameboy-audio-start').play();
+			AudioManager.playEffect("GameboyStart.mp3");
 			IntroAComplete = true;
 		}
 	}, 650);
@@ -304,3 +304,5 @@ function SetInfoHiddenIfNeeded()
 		SetInfoHUDHidden(true);
 	}
 }
+
+BrowserStart();

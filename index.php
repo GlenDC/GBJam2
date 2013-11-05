@@ -9,13 +9,9 @@
 		<link rel="stylesheet" type="text/css" href="css/framework.css">
 		<link rel="stylesheet" type="text/css" href="css/help.css">	
 		<link rel="shortcut icon" href="art/favicon.ico" />
-	
-		<script><?php include_once 'js/framework-images.php'; ?></script>
-		<script src="js/gameboy-pc.js"></script>
 		
-		<?php 
-			include_once 'php/scripts/web-factory.php';
-		?>
+		<script><?php include_once 'js/framework-images.php'; ?></script>
+		<?php include_once 'php/scripts/web-factory.php'; ?>
 		
 	</head>
 	<body>
@@ -50,10 +46,9 @@
 			<canvas id=main-canvas></canvas>
 			
 			<?php 
-				pCreateAudio("gameboy-audio-hard", "ButtonHardClick.mp3");
-				pCreateAudio("gameboy-audio-soft", "ButtonSoftClick.mp3");
-				pCreateAudio("gameboy-audio-start", "GameboyStart.mp3");
-				pCreateAudio("gameboy-audio-button-start", "ButtonStart.mp3");
+				pCreateAudio("audio-background", "TempBGMusic.mp3");
+				pCreateAudio("audio-effect", "ButtonSoftClick.mp3");
+				pCreateAudio("audio-gameboy", "ButtonSoftClick.mp3");
 			?>
 			
 			<div id=info-button-hover-text>SHOW CONTROLS</div>
@@ -110,7 +105,7 @@
 			var canvas = document.querySelector('canvas');
 			var ctx = canvas.getContext('2d');
 			intCustomText = null, logo = null, logo_y = -45;
-			
+	
 			ctx.font = 'italic 400 14px/2 helvetica neue, sans-serif';
 			
 			canvas.width = 160;
@@ -118,17 +113,19 @@
 			
 			drawBG();
 			
+			var gameboypcscript = document.createElement('script');
+			gameboypcscript.src = "js/gameboy-pc.js";
+			document.getElementsByTagName('script')[0].parentNode.appendChild(gameboypcscript);
+			
+			var mainscript = document.createElement('script');
+			mainscript.src = "js/main.js";
+			document.getElementsByTagName('script')[0].parentNode.appendChild(mainscript);
+				
 			function drawBG() {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				ctx.fillStyle = 'rgb(158, 151, 21)';
 				ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			}
-		</script>
-		
-		<script src="js/main.js"></script>
-		
-		<script>
-			BrowserStart();
 		</script>
 	</body>
 </html>
