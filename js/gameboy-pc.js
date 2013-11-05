@@ -2,342 +2,84 @@ var GameIsPaused = true;
 var GameboyIsOn = false;
 var GameHasStarted = false;
 
-var ButtonLeftIsDown = false;
-var ButtonRightIsDown = false;
-var ButtonUpIsDown = false;
-var ButtonDownIsDown = false;
-var ButtonAIsDown = false;
-var ButtonBIsDown = false;
-var ButtonStartIsDown = false;
-var ButtonSelectIsDown = false;
-var ButtonInfoIsDown = false;
-var EscapeButtonIsDown = false;
-
 var ShowInfoHUD = false;
 var HoverOverPowerButton = false;
 var GamebuttonPowerBlink = false;
 
-function SetCrossButtonHoverState(direction)
+var btnA, btnB, btnStart, btnSelect,
+	btnUp, btnDown, btnLeft, btnRight,
+	btnPower, btnInfo;
+
+var btnscript = document.createElement('script');
+btnscript.src = "js/button.js";
+document.getElementsByTagName('script')[0].parentNode.appendChild(btnscript);
+
+btnscript.onload = function() 
 {
-	var img = document.getElementById("button-cross-img");
-	switch(direction)
+	btnA = new Button("button-A", RoundIdle.src, 
+		RoundHover.src, RoundDown.src);
+	btnA.audio = "gameboy-audio-hard";
+	btnA.downCB = function()
 	{
-		case 0:
-			img.src = CrossUpHover.src;
-			break;
-		case 1:
-			img.src = CrossLeftHover.src;
-			break;
-		case 2:
-			img.src = CrossRightHover.src;
-			break;
-		case 3:
-			img.src = CrossDownHover.src;
-			break;
+		SetInfoHiddenIfNeeded();
 	}
-}
-
-function CrossButtonOver(direction,element)
-{
-	element.style.cursor = "pointer";
-	SetCrossButtonHoverState(direction);
-}
-
-function CrossButtonDown(direction,element)
-{
-	if(!GameIsPaused && GameboyIsOn)
+		
+	btnB = new Button("button-B", RoundIdle.src, 
+		RoundHover.src, RoundDown.src);
+	btnB.audio = "gameboy-audio-hard";
+		
+	btnStart = new Button("button-start", RectIdle.src, 
+		RectHover.src, RectDown.src);
+	btnStart.audio = "gameboy-audio-soft";
+	btnStart.downCB = function()
 	{
-		var img = document.getElementById("button-cross-img");
-		switch(direction)
+		SetInfoHiddenIfNeeded();
+	}
+		
+	btnSelect = new Button("button-select", RectIdle.src, 
+		RectHover.src, RectDown.src);
+	btnSelect.audio = "gameboy-audio-soft";
+		
+	btnUp = new Button("button-cross-img", CrossIdle.src, 
+		CrossUpHover.src, CrossUpDown.src);
+	btnUp.audio = "gameboy-audio-hard";
+		
+	btnDown = new Button("button-cross-img", CrossIdle.src, 
+		CrossDownHover.src, CrossDownDown.src);
+	btnDown.audio = "gameboy-audio-hard";
+		
+	btnRight = new Button("button-cross-img", CrossIdle.src, 
+		CrossRightHover.src, CrossRightDown.src);
+	btnRight.audio = "gameboy-audio-hard";
+		
+	btnLeft = new Button("button-cross-img", CrossIdle.src, 
+		CrossLeftHover.src, CrossLeftDown.src);
+	btnLeft.audio = "gameboy-audio-hard";
+		
+	btnInfo = new Button("button-info", InfoIdle.src,
+		InfoHover.src, InfoDown.src);
+	btnInfo.audio = "gameboy-audio-soft";
+	btnInfo.downCB = function()
+	{
+		SetInfoHUDHidden(ShowInfoHUD);
+	}
+		
+	btnPower = new ButtonSwitch("button-P", PowerOffIdle.src,
+		PowerOffHover.src, PowerOnIdle.src, PowerOnHover.src);
+	btnPower.alwaysActive = true;
+	btnPower.audio = "gameboy-audio-button-start";
+	btnPower.downCB = function() 
+	{
+		GameboyIsOn = !GameboyIsOn;
+		SetLight(GameboyIsOn);
+		if(GameboyIsOn)
 		{
-			case 0:
-				img.src = CrossUpDown.src;
-				if(!ButtonUpIsDown)
-				{
-					ButtonUpIsDown = true;
-					document.getElementById("gameboy-audio-hard").play();
-				}
-				break;
-			case 1:
-				img.src = CrossLeftDown.src;
-				if(!ButtonLeftIsDown)
-				{
-					ButtonLeftIsDown = true;
-					document.getElementById("gameboy-audio-hard").play();
-				}
-				break;
-			case 2:
-				img.src = CrossRightDown.src
-				if(!ButtonRightIsDown)
-				{
-					ButtonRightIsDown = true;
-					document.getElementById("gameboy-audio-hard").play();
-				}
-				break;
-			case 3:
-				img.src = CrossDownDown.src;
-				if(!ButtonDownIsDown)
-				{
-					ButtonDownIsDown = true;
-					document.getElementById("gameboy-audio-hard").play();
-				}
-				break;
+			StartGameBoy();
 		}
-	}
-}
-
-function SetRoundButton(element, state)
-{
-	switch(state)
-	{
-		case 0:
-			element.src = RoundIdle.src;
-			break;
-		case 1:
-			element.src = RoundHover.src
-			break;
-		case 2:
-			element.src = RoundDown.src;
-			break;
-	}
-}
-
-function SetRectButton(element, state)
-{
-	switch(state)
-	{
-		case 0:
-			element.src = RectIdle.src;
-			break;
-		case 1:
-			element.src = RectHover.src;
-			break;
-		case 2:
-			element.src = RectDown.src;
-			break;
-	}
-}
-
-function SetInfoButton(element, state)
-{
-	switch(state)
-	{
-		case 0:
-			element.src = InfoIdle.src;
-			break;
-		case 1:
-			element.src = InfoHover.src;
-			break;
-		case 2:
-			element.src = InfoDown.src;
-			break;
-	}
-}
-
-function ButtonAUp(element, is_keyboard)
-{
-	SetRoundButton(element, is_keyboard == true ? 0 : 1);
-	ButtonAIsDown = false;
-}
-
-function ButtonADown(element)
-{
-	if(!GameIsPaused && GameboyIsOn)
-	{
-		SetRoundButton(element, 2);
-		if(!ButtonAIsDown)
+		else
 		{
-			ButtonAIsDown = true;
-			SetInfoHiddenIfNeeded();
-			document.getElementById("gameboy-audio-hard").play();
+			GameStop();
 		}
-	}
-}
-
-function ButtonAOver(element)
-{
-	SetRoundButton(element, 1);
-}
-
-function ButtonAOut(element)
-{
-	SetRoundButton(element, 0);
-}
-
-function ButtonBUp(element, is_keyboard)
-{
-	SetRoundButton(element, is_keyboard ? 0 : 1);
-	ButtonBIsDown = false;
-}
-
-function ButtonBDown(element)
-{
-	if(!GameIsPaused && GameboyIsOn)
-	{
-		if(!ButtonBIsDown)
-		{
-			ButtonBIsDown = true;
-			document.getElementById("gameboy-audio-hard").play();
-		}
-		SetRoundButton(element, 2);
-	}
-}
-
-function ButtonBOver(element)
-{
-	SetRoundButton(element, 1);
-}
-
-function ButtonBOut(element)
-{
-	SetRoundButton(element, 0);
-}
-
-function ButtonStartUp(element, is_keyboard)
-{
-	SetRectButton(element, is_keyboard ? 0 : 1);
-	ButtonStartIsDown = false;
-}
-
-function ButtonStartDown(element)
-{
-	if(!GameIsPaused && GameboyIsOn)
-	{
-		SetRectButton(element, 2);
-		if(!ButtonStartIsDown)
-		{
-			ButtonStartIsDown = true;
-			SetInfoHiddenIfNeeded();
-			document.getElementById("gameboy-audio-soft").play();
-		}
-	}
-}
-
-function ButtonStartOver(element)
-{
-	SetRectButton(element, 1);
-}
-
-function ButtonStartOut(element)
-{
-	SetRectButton(element, 0);
-}
-
-function ButtonSelectUp(element,is_keyboard)
-{
-	SetRectButton(element, is_keyboard ? 0 : 1);
-	ButtonSelectIsDown = false;
-}
-
-function ButtonSelectDown(element)
-{
-	if(!GameIsPaused && GameboyIsOn)
-	{
-		SetRectButton(element, 2);
-		if(!ButtonSelectIsDown)
-		{
-			ButtonSelectIsDown = true;
-			document.getElementById("gameboy-audio-soft").play();
-		}
-	}
-}
-
-function ButtonSelectOver(element)
-{
-	SetRectButton(element, 1);
-}
-
-function ButtonSelectOut(element)
-{
-	SetRectButton(element, 0);
-}
-
-function ButtonStartOut(element)
-{
-	SetRectButton(element, 0);
-}
-
-function ButtonInfoUp(element,is_keyboard)
-{
-	SetInfoButton(element, is_keyboard ? 0 : 1);
-	ButtonInfoIsDown = false;
-}
-
-function ButtonInfoDown(element)
-{
-	if(!GameIsPaused && GameboyIsOn)
-	{
-		SetInfoButton(element, 2);
-		if(!ButtonInfoIsDown)
-		{
-			ButtonInfoIsDown = true;
-			document.getElementById("gameboy-audio-soft").play();
-			SetInfoHUDHidden(ShowInfoHUD);
-		}
-	}
-}
-
-function ButtonInfoOver(element)
-{
-	SetInfoButton(element, 1);
-	if(GameboyIsOn && !GameIsPaused && !ShowInfoHUD)
-	{
-		document.getElementById('info-button-hover-text').style.visibility = 'visible';
-	}
-}
-
-function ButtonInfoOut(element)
-{
-	SetInfoButton(element, 0);
-	document.getElementById('info-button-hover-text').style.visibility = 'hidden';
-}
-
-function CrossButtonUp(direction,element,is_keyboard)
-{
-	switch(direction)
-	{
-		case 3:
-			ButtonDownIsDown = false;
-			break;
-		case 1:
-			ButtonLeftIsDown = false;
-			break;
-		case 2:
-			ButtonRightIsDown = false;
-			break;
-		case 0:
-			ButtonUpIsDown = false;
-			break;
-	}
-	if(is_keyboard)
-	{
-		CrossButtonOut(direction,element);
-	}
-	else
-	{
-		SetCrossButtonHoverState(direction);
-	}
-}
-
-function CrossButtonOut(direction,element)
-{
-	var img = document.getElementById("button-cross-img");
-	img.src = CrossIdle.src;
-	element.style.cursor = 'default';
-	switch(direction)
-	{
-		case 3:
-			// down
-			break;
-		case 1:
-			// left
-			break;
-		case 2:
-			// right
-			break;
-		case 0:
-			// up
-			break;
 	}
 }
 
@@ -354,86 +96,47 @@ function SetLight(is_on)
 	}
 }
 
-function SetPowerButtonOver(elem)
-{
-	HoverOverPowerButton = true;
-	SetPowerButtonState(elem);
-}
-
-function SetPowerButtonOut(elem)
-{
-	HoverOverPowerButton = false;
-	SetPowerButtonState(elem);
-}
-
-function SetPowerButtonState(element)
-{
-	if(GameboyIsOn)
-	{
-		if(HoverOverPowerButton)
-		{
-			element.src = PowerOnHover.src;
-		}
-		else
-		{
-			element.src = PowerOnIdle.src;
-		}
-	}
-	else
-	{
-		if(HoverOverPowerButton)
-		{
-			element.src = PowerOffHover.src;
-		}
-		else
-		{
-			element.src = PowerOffIdle.src;
-		}
-	}
-}
-
 document.addEventListener('keydown', function(event)
 {
 	if(event.keyCode == 37)
 	{
-		CrossButtonDown(1, document.getElementById("button-cross-img"));
+		btnLeft.down();
 	}
 	else if(event.keyCode == 39)
 	{
-		CrossButtonDown(2, document.getElementById("button-cross-img"));
+		btnRight.down();
 	}
 	else if(event.keyCode == 38)
 	{
-		CrossButtonDown(0, document.getElementById("button-cross-img"));
+		btnUp.down();
 	}
 	else if(event.keyCode == 40)
 	{
-		CrossButtonDown(3, document.getElementById("button-cross-img"));
+		btnDown.down();
 	}
 	else if(event.keyCode == 13)
 	{
-		ButtonStartDown(document.getElementById("button-start"))
+		btnStart.down();
 	}
 	else if(event.keyCode == 32)
 	{
-		ButtonSelectDown(document.getElementById("button-select"))
+		btnSelect.down();
 	}
 	else if(event.keyCode == 73)
 	{
-		ButtonInfoDown(document.getElementById("button-info"))
+		btnInfo.down();
 	}
 	else if(event.keyCode == 88)
 	{
-		ButtonADown(document.getElementById("button-A"),true)
+		btnA.down();
 	}
 	else if(event.keyCode == 87 || event.keyCode == 90)
 	{
-		ButtonBDown(document.getElementById("button-B"),true)
+		btnB.down();
 	}
-	else if(event.keyCode == 27 && !EscapeButtonIsDown)
+	else if(event.keyCode == 27)
 	{
-		EscapeButtonIsDown = true;
-		GameSwitch();
+		btnPower.down();
 	}
 });
 
@@ -441,43 +144,43 @@ document.addEventListener('keyup', function(event)
 {
 	if( event.keyCode == 37 )
 	{
-		CrossButtonUp(1, document.getElementById("button-cross-img"),true);
+		btnLeft.up();
 	}
 	else if(event.keyCode == 39)
 	{
-		CrossButtonUp(2, document.getElementById("button-cross-img"),true);
+		btnRight.up();
 	}
 	else if(event.keyCode == 38)
 	{
-		CrossButtonUp(0, document.getElementById("button-cross-img"),true);
+		btnUp.up();
 	}
 	else if(event.keyCode == 40)
 	{
-		CrossButtonUp(3, document.getElementById("button-cross-img"),true);
+		btnDown.up();
 	}
 	else if(event.keyCode == 13)
 	{
-		ButtonStartUp(document.getElementById("button-start"),true)
+		btnStart.up();
 	}
 	else if(event.keyCode == 32)
 	{
-		ButtonSelectUp(document.getElementById("button-select"),true)
+		btnSelect.up();
 	}
 	else if(event.keyCode == 73)
 	{
-		ButtonInfoUp(document.getElementById("button-info"),true)
+		btnInfo.up();
 	}
 	else if(event.keyCode == 88)
 	{
-		ButtonAUp(document.getElementById("button-A"),true)
+		btnA.up();
 	}
 	else if(event.keyCode == 90 || event.keyCode == 87)
 	{
-		ButtonBUp(document.getElementById("button-B"),true)
+		btnB.up();
 	}
 	else if(event.keyCode == 27)
 	{
-		EscapeButtonIsDown = false;
+		btnPower.up();
 	}
 });
 
@@ -600,20 +303,4 @@ function SetInfoHiddenIfNeeded()
 	{
 		SetInfoHUDHidden(true);
 	}
-}
-
-function GameSwitch()
-{
-	document.getElementById('gameboy-audio-button-start').play();
-	GameboyIsOn = !GameboyIsOn;
-	SetLight(GameboyIsOn);
-	if(GameboyIsOn)
-	{
-		StartGameBoy();
-	}
-	else
-	{
-		GameStop();
-	}
-	SetPowerButtonState(document.getElementById("button-P"));
 }

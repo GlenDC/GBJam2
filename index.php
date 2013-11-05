@@ -22,8 +22,8 @@
 		<article>
 			<?php
 				pCreateImageBtn("", "button-P",	"PowerButtonOff_Idle.png", 
-						"SetPowerButtonOver(this);StopPowerButtonBlinking(this);",
-						"SetPowerButtonOut(this);", "GameSwitch();","");
+						"btnPower.hover();StopPowerButtonBlinking(this);",
+						"btnPower.out();", "btnPower.down();","btnPower.up()");
 			?>
 			
 			<img src="art/framework/GameBoy.png" id=gameboy-img 
@@ -64,17 +64,17 @@
 				pCreateImage("gb-light", "Light_Off.png");
 			
 				pCreateImageBtn("button-round", "button-A",	"Round_Idle.png", 
-					"ButtonAOver(this);", "ButtonAOut(this);", "ButtonADown(this);",
-					"ButtonAUp(this,false);");
+					"btnA.hover();", "btnA.out();", "btnA.down();",
+					"btnA.up();");
 				pCreateImageBtn("button-round", "button-B", "Round_Idle.png", 
-					"ButtonBOver(this);", "ButtonBOut(this);", "ButtonBDown(this);",
-					"ButtonBUp(this,false);");
-				pCreateImageBtn("button-rect", "button-select", "Rect_Idle.png", 
-					"ButtonSelectOver(this);", "ButtonSelectOut(this);",
-					"ButtonSelectDown(this);", "ButtonSelectUp(this,false);");
+					"btnB.hover();", "btnB.out();", "btnB.down();",
+					"btnB.up();");
 				pCreateImageBtn("button-rect", "button-start", "Rect_Idle.png", 
-					"ButtonStartOver(this);", "ButtonStartOut(this);",
-					"ButtonStartDown(this);", "ButtonStartUp(this,false);");
+					"btnStart.hover();", "btnStart.out();", "btnStart.down();",
+					"btnStart.up();");
+				pCreateImageBtn("button-rect", "button-select", "Rect_Idle.png",
+					"btnSelect.hover();", "btnSelect.out();", "btnSelect.down();",
+					"btnSelect.up();");
 			?>
 			
 			<div id=button-cross>
@@ -82,18 +82,22 @@
 					usemap="#button-cross-map" id=button-cross-img class=unselectable>
 				<map name=button-cross-map>
 				<?php
-					pCreateCrossButtonArea(0, "23,0,46,23", "Up");
-					pCreateCrossButtonArea(1, "0,23,23,46", "Left");
-					pCreateCrossButtonArea(2, "46,23,69,46", "Right");
-					pCreateCrossButtonArea(3, "23,46,46,69", "Down");
+					pCreateCrossButtonArea(0, "23,0,46,23", "Up",
+						"btnUp.hover();", "btnUp.out();", "btnUp.down();", "btnUp.up();");
+					pCreateCrossButtonArea(1, "0,23,23,46", "Left",
+						"btnLeft.hover();", "btnLeft.out();", "btnLeft.down();", "btnLeft.up();");
+					pCreateCrossButtonArea(2, "46,23,69,46", "Right",
+						"btnRight.hover();", "btnRight.out();", "btnRight.down();", "btnRight.up();");
+					pCreateCrossButtonArea(3, "23,46,46,69", "Down",
+						"btnDown.hover();", "btnDown.out();", "btnDown.down();", "btnDown.up();");
 				?>
 				</map>
 			</div>
 			
 			<?php
 				pCreateImageBtn("", "button-info", "Info_Idle.png", 
-					"ButtonInfoOver(this);", "ButtonInfoOut(this);",
-					"ButtonInfoDown(this);", "ButtonInfoUp(this,false);");
+					"btnInfo.hover();", "btnInfo.out();",
+					"btnInfo.down();", "btnInfo.up();");
 			?>
 			
 			<footer id=website-footer>

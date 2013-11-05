@@ -21,15 +21,12 @@
 	}
 	
 	function pCreateCrossButtonArea(
-		$id, $coords, $alt
+		$id, $coords, $alt, $mOver, $mOut, $mDown, $mUp
 		)
 	{
-		echo '<area shape=rect onmouseover="CrossButtonOver(';
-		echo $id . ',this);"';
-		echo ' onmouseout="CrossButtonOut(';
-		echo $id . ',this);" onmousedown="CrossButtonDown(';
-		echo $id . ',this);" onmouseup="CrossButtonUp(';
-		echo $id . ',this,false);" coords="';
+		echo '<area shape=rect onmouseover="' . $mOver . '" ';
+		echo 'onmouseout="' . $mOut . '" onmousedown="' . $mDown .'" ';
+		echo 'onmouseup="' . $mUp . '" coords="';
 		echo $coords . '" alt="' . $alt . '" />';
 	}
 	

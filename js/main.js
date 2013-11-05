@@ -1,5 +1,11 @@
+var gamescript = document.createElement('script');
+gamescript.src = "js/game.js";
+document.getElementsByTagName('script')[0].parentNode.appendChild(gamescript);
+
 /* Pre-Logic: 
-   Applies to everything that happens before the game starts. */
+   Applies to everything that happens before the game starts. 
+  -------------------------------------------------------------
+*/
 
 function LoadPreGameContent()
 {
@@ -25,7 +31,6 @@ function UnloadPreGameContent()
 	drawBG();
 	delete window.logo;
 	logo_y = -45;
-	
 }
 
 function pretick()
@@ -40,22 +45,27 @@ function pretick()
 	prerender(dt);
 }
 
-function preupdate(dt) {
+function preupdate(dt)
+{
 	if(logo_y < canvas.height / 2.5)
 	{
 		logo_y += dt * 12;
 	}
 }
 
-function prerender(dt) {
+function prerender(dt)
+{
 	drawBG();
 	ctx.drawImage(logo, 0, logo_y);
 }
 
 /* Game-Locic: 
-   Applies to everything from the game itself. */
+   Applies to everything from the game itself. 
+  -------------------------------------------------------------
+*/
 
 var showTempText = false;
+game = null;
 
 function LoadGameContent()
 {	
@@ -63,11 +73,18 @@ function LoadGameContent()
 	lastUpdate = Date.now();
 	clearInterval(myInterval);
 	myInterval = setInterval(tick, 0);
+	
+	game = new Game();
+	game.loadContent();
 }
 
 function UnloadGameContent()
 {
 	drawBG();
+	
+	game.unloadContent();
+	delete window.game;
+	
 	clearInterval(intCustomText);
 	clearInterval(myInterval);
 	showTempText = false;
@@ -92,11 +109,13 @@ function stt()
 
 function update(dt)
 {
+	game.update(dt);
 }
 
 function render(dt)
 {
 	drawBG();
+	game.render(dt);
 	if(showTempText)
 	{
 		ctx.fillStyle = 'rgb(0, 0, 0)';
