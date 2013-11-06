@@ -13,6 +13,8 @@ var AudioManager = new function()
 	
 	var isInitialized = false;
 	
+	var extension = "";
+	
 	this.increaseVolume = function()
 	{
 		gamevolume += 0.1;
@@ -56,6 +58,18 @@ var AudioManager = new function()
 		
 		background.volume = backgroundVolume * gamevolume;
 		effect.volume = effectVolume * gamevolume;
+		
+		if (background.canPlayType('audio/mpeg;')) {
+			extension = ".mp3";
+			background.type= 'audio/mpeg';
+			effect.type= 'audio/mpeg';
+			gameboy.type= 'audio/mpeg';
+		} else {
+			extension = ".ogg";
+			background.type= 'audio/ogg';
+			effect.type= 'audio/ogg';
+			gameboy.type= 'audio/ogg';
+		}
 	}
 	
 	this.stop = function()
@@ -76,7 +90,7 @@ var AudioManager = new function()
 			isInitialized = true;
 			initialize();
 		}
-		background.src = "audio/background/" + file;
+		background.src = "audio/background/" + file + extension;
 		background.play();
 	}
 
@@ -87,7 +101,7 @@ var AudioManager = new function()
 			isInitialized = true;
 			initialize();
 		}
-		effect.src = "audio/effect/" + file;
+		effect.src = "audio/effect/" + file + extension;
 		effect.play();
 	}
 
@@ -98,7 +112,7 @@ var AudioManager = new function()
 			isInitialized = true;
 			initialize();
 		}
-		gameboy.src = "audio/gameboy/" + file;
+		gameboy.src = "audio/gameboy/" + file + extension;
 		gameboy.play();
 	}
 	

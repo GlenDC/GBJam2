@@ -8,7 +8,7 @@ var Game = new function()
 
 	this.loadContent = function()
 	{
-		AudioManager.playBackground("TempBGMusic.mp3");
+		AudioManager.playBackground("TempBGMusic");
 	}
 	
 	this.unloadContent = function()

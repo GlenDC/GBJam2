@@ -110,9 +110,9 @@
 				
 			
 			<?php 
-				pCreateAudio("audio-background", "TempBGMusic.mp3");
-				pCreateAudio("audio-effect", "ButtonSoftClick.mp3");
-				pCreateAudio("audio-gameboy", "ButtonSoftClick.mp3");
+				pCreateAudio("audio-background", "TempBGMusic");
+				pCreateAudio("audio-effect", "ButtonSoftClick");
+				pCreateAudio("audio-gameboy", "ButtonSoftClick");
 			?>
 			
 			<div id=info-button-hover-text>SHOW CONTROLS</div>
