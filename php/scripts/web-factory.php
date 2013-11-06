@@ -70,4 +70,9 @@
 		echo '<img id=' . $id . ' draggable=false class=unselectable src="';
 		echo $dir_framework . $src . '" />';
 	}
+	
+	function pCreateCanvas($id, $mOver, $mOut, $mDown, $mUp)
+	{
+		echo '<canvas id=' . $id . ' class=unselectable></canvas>';
+	}
 ?>

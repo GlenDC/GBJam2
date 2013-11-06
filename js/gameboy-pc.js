@@ -30,7 +30,7 @@ btnscript.onload = function()
 	btnA.downCB = function()
 	{
 		SetInfoHiddenIfNeeded();
-		AudioManager.setVolume(1);
+		//AudioManager.setVolume(1);
 	}
 		
 	btnB = new Button("button-B", RoundIdle.src, 
@@ -38,7 +38,7 @@ btnscript.onload = function()
 	btnB.audio = "ButtonHardClick.mp3";
 	btnB.downCB = function()
 	{
-		AudioManager.setVolume(0);
+		//AudioManager.setVolume(0);
 	}
 		
 	btnStart = new Button("button-start", RectIdle.src, 

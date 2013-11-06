@@ -95,6 +95,15 @@ area {
 	height: 34px;
 	cursor: pointer;
 	z-index: 10;
+    /* For Opera and <= IE9, we need to add unselectable="on" attribute onto each element */
+    /* Check this site for more details: http://help.dottoro.com/lhwdpnva.php */
+    -moz-user-select: none; /* These user-select properties are inheritable, used to prevent text selection */
+    -webkit-user-select: none;
+    -ms-user-select: none; /* From IE10 only */
+    user-select: none; /* Not valid CSS yet, as of July 2012 */
+
+    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+    user-drag: none;
 }
 
 .button-round:hover {
@@ -119,6 +128,15 @@ area {
 	height: 19px;
 	cursor: pointer;
 	z-index: 10;
+    /* For Opera and <= IE9, we need to add unselectable="on" attribute onto each element */
+    /* Check this site for more details: http://help.dottoro.com/lhwdpnva.php */
+    -moz-user-select: none; /* These user-select properties are inheritable, used to prevent text selection */
+    -webkit-user-select: none;
+    -ms-user-select: none; /* From IE10 only */
+    user-select: none; /* Not valid CSS yet, as of July 2012 */
+
+    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+    user-drag: none;
 }
 
 .button-rect:hover {
@@ -207,4 +225,18 @@ area {
 	margin-left: 105px;
 	margin-top: 5px;
 	z-index: 10;
+}
+
+/* wheels */
+
+#canvas-wheel-right {
+	position: absolute;
+	cursor: pointer;
+	width: 52px;
+	height: 52px;
+}
+
+#canvas-wheel-right {
+	margin-left: 285px;
+	margin-top: 60px;
 }

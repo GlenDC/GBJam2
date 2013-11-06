@@ -11,6 +11,7 @@
 		<link rel="shortcut icon" href="art/favicon.ico" />
 		
 		<script><?php include_once 'js/framework-images.php'; ?></script>
+		<script src="js/gameboywheel.js"></script>
 		<?php include_once 'php/scripts/web-factory.php'; ?>
 		
 	</head>
@@ -43,7 +44,12 @@
 			</article>
 			
 			<!-- Canvas for all game content -->
-			<canvas id=main-canvas></canvas>
+			<canvas id=main-canvas class=unselectable></canvas>
+			<?php
+				pCreateCanvas("canvas-wheel-right", "wheelRight.over();",
+					"wheelRight.out();", "wheelRight.down();", "wheelRight.up();");
+			?>
+			<canvas id=canvas-wheel-right class=unselectable></canvas>
 			
 			<?php 
 				pCreateAudio("audio-background", "TempBGMusic.mp3");
@@ -126,6 +132,9 @@
 				ctx.fillStyle = 'rgb(158, 151, 21)';
 				ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			}
+			
+			var wheelLeft, wheelRight;
+			wheelRight = new GameboyWheel("canvas-wheel-right");
 		</script>
 	</body>
 </html>
