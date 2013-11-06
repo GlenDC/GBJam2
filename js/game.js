@@ -2,8 +2,10 @@ var audioscript = document.createElement('script');
 audioscript.src = "js/audiomanager.js";
 document.getElementsByTagName('script')[0].parentNode.appendChild(audioscript);
 
-Game = function()
+var Game = new function()
 {
+	this.pause = false;
+
 	this.loadContent = function()
 	{
 		AudioManager.playBackground("TempBGMusic.mp3");
@@ -16,11 +18,17 @@ Game = function()
 	
 	this.update = function(dt)
 	{
-	
+		if(!this.pause)
+		{
+		
+		}
 	}
 	
 	this.render = function(dt)
 	{
-	
+		if(!this.pause)
+		{
+		
+		}
 	}
 }

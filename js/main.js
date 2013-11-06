@@ -65,7 +65,6 @@ function prerender(dt)
 */
 
 var showTempText = false;
-game = null;
 
 function LoadGameContent()
 {	
@@ -74,16 +73,16 @@ function LoadGameContent()
 	clearInterval(myInterval);
 	myInterval = setInterval(tick, 0);
 	
-	game = new Game();
-	game.loadContent();
+	Game.loadContent();
+	Game.pause = false;
 }
 
 function UnloadGameContent()
 {
 	drawBG();
 	
-	game.unloadContent();
-	delete window.game;
+	Game.unloadContent();
+	Game.pause = true;
 	
 	clearInterval(intCustomText);
 	clearInterval(myInterval);
@@ -109,13 +108,13 @@ function stt()
 
 function update(dt)
 {
-	game.update(dt);
+	Game.update(dt);
 }
 
 function render(dt)
 {
 	drawBG();
-	game.render(dt);
+	Game.render(dt);
 	if(showTempText)
 	{
 		ctx.fillStyle = 'rgb(0, 0, 0)';

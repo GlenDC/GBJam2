@@ -18,6 +18,10 @@ var audioscript = document.createElement('script');
 audioscript.src = "js/audiomanager.js";
 document.getElementsByTagName('script')[0].parentNode.appendChild(audioscript);
 
+var gamescript = document.createElement('script');
+gamescript.src = "js/audiomanager.js";
+document.getElementsByTagName('script')[0].parentNode.appendChild(gamescript);
+
 btnscript.onload = function() 
 {
 	btnA = new Button("button-A", RoundIdle.src, 
@@ -206,6 +210,7 @@ window.addEventListener('touchend',function(event)
 function SetInfoHUDHidden(is_hidden)
 {
 	ShowInfoHUD = !is_hidden;
+	Game.pause = ShowInfoHUD;
 	var canvas = document.getElementById('main-canvas');
 	var infoHUD = document.getElementById('gameboy-help-article');
 	canvas.style.visibility = !is_hidden ? 'hidden' : 'visible';
