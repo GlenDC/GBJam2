@@ -43,19 +43,29 @@ article {
 #website-footer {
 	font-size: 0.7em;
 	text-align: center;
-	color: black;
-	
 	position: absolute;
 	width: 100%;
-	height: 100px;
 	
 	margin-top: 500px;
+}
+
+#website-footer, #website-footer a {
+	color: black;
+}
+
+#website-footer p {
+	padding: 0;
+	margin: 0;
+}
+
+#sub-footer {
+	font-style: italic;
+	font-size: 0.8em;
 }
 
 #website-footer  a {
 	text-decoration: none;
 	text-weight: bold;
-	color: black;
 }
 
 #website-footer  a:hover {

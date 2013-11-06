@@ -4,7 +4,7 @@
 		include_once 'php/global.php';
 	?>
 	<head>
-		<meta encoding=utf-8>
+		<meta charset=UTF-8>
 		<title><?php echo $title . ' - ' . $subtitle; ?></title>
 		<link rel="stylesheet" type="text/css" href="css/framework.css">
 		<link rel="stylesheet" type="text/css" href="css/help.css">	
@@ -26,21 +26,22 @@
 			<?php
 				pCreateImageBtn("", "button-P",	"PowerButtonOff_Idle.png", 
 						"btnPower.hover();StopPowerButtonBlinking(this);",
-						"btnPower.out();", "btnPower.down();","btnPower.up()");
+						"btnPower.out();", "btnPower.down();","btnPower.up()",
+						"Power Button");
 			?>
 			
 			<img src="art/framework/GameBoy.png" id=gameboy-img 
-				draggable=false class=unselectable />
+				draggable=false class=unselectable alt="Gameboy background"/>
 			
 			<article id=gameboy-help-article>
 				<header id=help-header>-= CONTROLS =-</header>
 				<ul>
 				<?php
-					pCreateControlInfo("help-cross.png", "move", "ARROWS");
-					pCreateControlsInfo("help-a.png", "shoot", "W", "Z");
-					pCreateControlInfo("help-b.png", "jump", "X");
-					pCreateControlInfo("help-l.png", "pause", "SPACE");
-					pCreateControlInfo("help-r.png", "special", "ENTER");
+					pCreateControlInfo("help-cross.png", "move", "d-pad", "ARROWS");
+					pCreateControlsInfo("help-a.png", "shoot", "A button", "W", "Z");
+					pCreateControlInfo("help-b.png", "jump", "B button", "X");
+					pCreateControlInfo("help-l.png", "pause", "Start button", "SPACE");
+					pCreateControlInfo("help-r.png", "special", "Select button", "ENTER");
 				?>
 				</ul>
 				<footer id=help-footer>Press 
@@ -52,14 +53,14 @@
 			<!-- Canvas for all game content -->
 			<canvas id=main-canvas class=unselectable></canvas>
 				<!-- Volume stuff
-				------------------------------------------------ -->
+				+++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 				<div id=button-volume-on>
 					<?php
 					pCreateImageMapBtn("", 
 							"button-volume-on-img", "Wheel.png", 
 							"btnVolumeOn.hover();", "btnVolumeOn.out();",
 							"btnVolumeOn.down();","btnVolumeOn.up()",
-							"#volume-on-map");
+							"volume on button", "#volume-on-map");
 					?>
 					<map name=volume-on-map>
 					<?php
@@ -77,17 +78,18 @@
 				pCreateImageBtn("", 
 						"button-volume-off", "Wheel.png", 
 						"btnVolumeOff.hover();", "btnVolumeOff.out();",
-						"btnVolumeOff.down();","btnVolumeOff.up()");
+						"btnVolumeOff.down();","btnVolumeOff.up()",
+						"volume off buton");
 				?>
 				<!-- Brightness stuff
-				------------------------------------------------ -->
+				++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 				<div id=button-brightness-on>
 					<?php
 					pCreateImageMapBtn("", 
 							"button-brightness-on-img", "Wheel.png", 
 							"btnBrightnessOn.hover();", "btnBrightnessOn.out();",
 							"btnBrightnessOn.down();","btnBrightnessOn.up()",
-							"#brightness-on-map");
+							"brightness on button", "#brightness-on-map");
 					?>
 					<map name=brightness-on-map>
 					<?php
@@ -105,7 +107,8 @@
 				pCreateImageBtn("", 
 						"button-brightness-off", "Wheel.png", 
 						"btnBrightnessOff.hover();", "btnBrightnessOff.out();",
-						"btnBrightnessOff.down();","btnBrightnessOff.up()");
+						"btnBrightnessOff.down();","btnBrightnessOff.up()",
+						"brightness off button");
 				?>
 				
 			
@@ -120,25 +123,26 @@
 				MOBILE DEVICES NOT SUPPORTED YET</div>
 			
 			<?php
-				pCreateImage("gb-light", "Light_Off.png");
+				pCreateImage("gb-light", "Light_Off.png", "Gameboy light");
 			
 				pCreateImageBtn("button-round", "button-A",	"Round_Idle.png", 
 					"btnA.hover();", "btnA.out();", "btnA.down();",
-					"btnA.up();");
+					"btnA.up();", "Button A");
 				pCreateImageBtn("button-round", "button-B", "Round_Idle.png", 
 					"btnB.hover();", "btnB.out();", "btnB.down();",
-					"btnB.up();");
+					"btnB.up();", "Button B");
 				pCreateImageBtn("button-rect", "button-start", "Rect_Idle.png", 
 					"btnStart.hover();", "btnStart.out();", "btnStart.down();",
-					"btnStart.up();");
+					"btnStart.up();", "Button Start");
 				pCreateImageBtn("button-rect", "button-select", "Rect_Idle.png",
 					"btnSelect.hover();", "btnSelect.out();", "btnSelect.down();",
-					"btnSelect.up();");
+					"btnSelect.up();", "Button Select");
 			?>
 			
 			<div id=button-cross>
 				<img src="<?php echo $dir_framework; ?>Cross_Idle.png" draggable=false 
-					usemap="#button-cross-map" id=button-cross-img class=unselectable>
+					usemap="#button-cross-map" id=button-cross-img class=unselectable 
+					alt="D Pad">
 				<map name=button-cross-map>
 				<?php
 					pCreateButtonArea("23,0,46,23", "Up",
@@ -156,7 +160,7 @@
 			<?php
 				pCreateImageBtn("", "button-info", "Info_Idle.png", 
 					"btnInfo.hover();", "btnInfo.out();",
-					"btnInfo.down();", "btnInfo.up();");
+					"btnInfo.down();", "btnInfo.up();", "Button Info");
 			?>
 			
 			<footer id=website-footer>

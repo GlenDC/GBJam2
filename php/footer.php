@@ -13,12 +13,12 @@
 	$gbjam->name = "GBJam";
 	$gbjam->website = "http://www.gbjam.net/";
 	
-	$day = 6;
+	$day = "06";
 ?>
 
 <p>A <?php $gbjam->getInfo(); ?> HTML5 Game Developed By<br/>
 <?php $glen->getInfo(); ?> and <?php $tommy->getInfo(); ?>.</p>
-<p>Latest update @ 
-	<time datetime="20013-11-<?php echo $day; ?>"><?php echo $day; ?>
+<p id=sub-footer>Latest update @ 
+	<time datetime="2013-11-<?php echo $day; ?>"><?php echo $day; ?>
 	<sup>th</sup> November, 2013</time>
 </p>
