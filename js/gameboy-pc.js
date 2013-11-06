@@ -14,6 +14,10 @@ var btnscript = document.createElement('script');
 btnscript.src = "js/button.js";
 document.getElementsByTagName('script')[0].parentNode.appendChild(btnscript);
 
+var audioscript = document.createElement('script');
+audioscript.src = "js/audiomanager.js";
+document.getElementsByTagName('script')[0].parentNode.appendChild(audioscript);
+
 btnscript.onload = function() 
 {
 	btnA = new Button("button-A", RoundIdle.src, 
@@ -22,11 +26,16 @@ btnscript.onload = function()
 	btnA.downCB = function()
 	{
 		SetInfoHiddenIfNeeded();
+		AudioManager.setVolume(1);
 	}
 		
 	btnB = new Button("button-B", RoundIdle.src, 
 		RoundHover.src, RoundDown.src);
 	btnB.audio = "ButtonHardClick.mp3";
+	btnB.downCB = function()
+	{
+		AudioManager.setVolume(0);
+	}
 		
 	btnStart = new Button("button-start", RectIdle.src, 
 		RectHover.src, RectDown.src);

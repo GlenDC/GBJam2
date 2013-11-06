@@ -23,7 +23,6 @@ var AudioManager = new function()
 		}
 		background.volume = backgroundVolume * volume;
 		effect.volume = effectVolume * volume;
-		gameboy.volume = gameboyVolume * volume;
 	}
 	
 	var initialize = function()
@@ -34,7 +33,6 @@ var AudioManager = new function()
 		
 		background.volume = backgroundVolume * gamevolume;
 		effect.volume = effectVolume * gamevolume;
-		gameboy.volume = gameboyVolume * gamevolume;
 	}
 	
 	this.stop = function()
