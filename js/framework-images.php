@@ -35,4 +35,6 @@
 	pCreateJSImage("SphereButton", 52, 52, "Wheel.png");
 	pCreateJSImage("SphereButtonDown", 52, 52, "Wheel_Down.png");
 	pCreateJSImage("SphereButtonUp", 52, 52, "Wheel_Up.png");
+	pCreateJSImage("SphereLButtonDown", 52, 52, "Wheel_L_Down.png");
+	pCreateJSImage("SphereLButtonUp", 52, 52, "Wheel_L_Up.png");
 ?>

@@ -51,6 +51,8 @@
 			
 			<!-- Canvas for all game content -->
 			<canvas id=main-canvas class=unselectable></canvas>
+				<!-- Volume stuff
+				------------------------------------------------ -->
 				<div id=button-volume-on>
 					<?php
 					pCreateImageMapBtn("", 
@@ -64,7 +66,7 @@
 						pCreateButtonArea("0,0,52,26", "Up", 
 							"btnVolumeUp.hover();", "btnVolumeUp.out();",
 							"btnVolumeUp.down();", "btnVolumeUp.up();");
-						pCreateButtonArea("0,26,52,52", "Up", 
+						pCreateButtonArea("0,26,52,52", "Down", 
 							"btnVolumeDown.hover();", "btnVolumeDown.out();",
 							"btnVolumeDown.down();", "btnVolumeDown.up();");
 					?>
@@ -76,6 +78,34 @@
 						"button-volume-off", "Wheel.png", 
 						"btnVolumeOff.hover();", "btnVolumeOff.out();",
 						"btnVolumeOff.down();","btnVolumeOff.up()");
+				?>
+				<!-- Brightness stuff
+				------------------------------------------------ -->
+				<div id=button-brightness-on>
+					<?php
+					pCreateImageMapBtn("", 
+							"button-brightness-on-img", "Wheel.png", 
+							"btnBrightnessOn.hover();", "btnBrightnessOn.out();",
+							"btnBrightnessOn.down();","btnBrightnessOn.up()",
+							"#brightness-on-map");
+					?>
+					<map name=brightness-on-map>
+					<?php
+						pCreateButtonArea("0,0,52,26", "Up", 
+							"btnBrightnessUp.hover();", "btnBrightnessUp.out();",
+							"btnBrightnessUp.down();", "btnBrightnessUp.up();");
+						pCreateButtonArea("0,26,52,52", "Down", 
+							"btnBrightnessDown.hover();", "btnBrightnessDown.out();",
+							"btnBrightnessDown.down();", "btnBrightnessDown.up();");
+					?>
+					</map>
+					<p id="brightness-text" class=unselectable>5</p>
+				</div>
+				<?php
+				pCreateImageBtn("", 
+						"button-brightness-off", "Wheel.png", 
+						"btnBrightnessOff.hover();", "btnBrightnessOff.out();",
+						"btnBrightnessOff.down();","btnBrightnessOff.up()");
 				?>
 				
 			
@@ -141,6 +171,8 @@
 			var ctx = canvas.getContext('2d');
 			intCustomText = null, logo = null, logo_y = -45;
 			
+			var GameboyBrightness = 0.5;
+			
 			//=============================================================
 			
 			var hVolumeText = document.getElementById("volume-text");
@@ -150,6 +182,13 @@
 			
 			var hVolumeOff = document.getElementById("button-volume-off");
 			
+			var hBrightnessText = document.getElementById("brightness-text");
+			
+			var hBrightnessOn = document.getElementById("button-brightness-on");
+			hBrightnessOn.style.visibility = 'hidden';
+			
+			var hBrightnessOff = document.getElementById("button-brightness-off");
+			
 			//==============================================================
 	
 			canvas = document.querySelector('canvas');
@@ -158,8 +197,6 @@
 			
 			canvas.width = 160;
 			canvas.height = 144;
-			
-			drawBG();
 			
 			var gameboypcscript = document.createElement('script');
 			gameboypcscript.src = "js/gameboy-pc.js";

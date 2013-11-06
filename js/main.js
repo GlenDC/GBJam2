@@ -2,6 +2,45 @@ var gamescript = document.createElement('script');
 gamescript.src = "js/game.js";
 document.getElementsByTagName('script')[0].parentNode.appendChild(gamescript);
 
+/* Processing Pixels Logic
+  ------------------------------------------------------------
+*/
+	
+Filters = {};
+Filters.getPixels = function() {
+	var c = document.getElementById("main-canvas");
+	var ctx = c.getContext('2d');
+	return ctx.getImageData(0,0,c.width,c.height);
+};
+
+Filters.filterImage = function(filter, image, var_args) {
+	var args = [this.getPixels(image)];
+	for (var i=2; i<arguments.length; i++) {
+	args.push(arguments[i]);
+	}
+	return filter.apply(null, args);
+};
+
+Filters.brightness = function(pixels, adjustment) {
+	  var d = pixels.data;
+	  for (var i=0; i<d.length; i+=4) {
+		d[i] += adjustment * ((158/255)*1.5);
+		d[i+1] += adjustment * ((151/255)*1.5);
+		d[i+2] += adjustment * ((21/255)*1.5);
+	  }
+	  return pixels;
+};
+
+function postprocess()
+{
+	var brightness = ( GameboyBrightness * 2.0 ) - 1.0;
+	brightness *= 255;
+
+	var pixels = ctx.getImageData(0,0,canvas.width,canvas.height);
+	pixels = Filters.brightness(pixels, brightness);
+	ctx.putImageData(pixels, 0, 0);
+}
+
 /* Pre-Logic: 
    Applies to everything that happens before the game starts. 
   -------------------------------------------------------------
@@ -57,6 +96,7 @@ function prerender(dt)
 {
 	drawBG();
 	ctx.drawImage(logo, 0, logo_y);
+	postprocess();
 }
 
 /* Game-Locic: 
@@ -120,4 +160,5 @@ function render(dt)
 		ctx.fillStyle = 'rgb(0, 0, 0)';
 		ctx.fillText("-= NO GAME IS LOADING =-", 12,130);
 	}
+	postprocess();
 }

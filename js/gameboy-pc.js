@@ -10,6 +10,9 @@ var btnA, btnB, btnStart, btnSelect,
 	btnUp, btnDown, btnLeft, btnRight,
 	btnPower, btnInfo, btnVolumeOn, btnVolumeOff,
 	btnVolumeUp, btnVolumeDown;
+	
+var btnBrightnessOn, btnBrightnessOff,
+	btnBrightnessUp, btnBrightnessDown;
 
 var btnscript = document.createElement('script');
 btnscript.src = "js/button.js";
@@ -94,6 +97,10 @@ btnscript.onload = function()
 		}
 	}
 	
+	//=====================================================================
+	//==== VOLUME LOGIC
+	//=====================================================================
+	
 	btnVolumeOn = new Button("button-volume-on-img", SphereButton.src,
 		SphereButton.src, SphereButton.src);
 	btnVolumeOn.alwaysActive = true;
@@ -150,6 +157,79 @@ btnscript.onload = function()
 		volumeFadeOutTimeOut = setTimeout(
 			function() { setVolumeVisible(false); }, 500);
 	}
+	
+	//=====================================================================
+	//==== BRIGHTNESS LOGIC
+	//=====================================================================
+	
+	btnBrightnessOn = new Button("button-brightness-on-img", SphereButton.src,
+		SphereButton.src, SphereButton.src);
+	btnBrightnessOn.alwaysActive = true;
+	btnBrightnessOn.outCB = function()
+	{
+		brightnessFadeOutTimeOut = setTimeout(
+			function() { setBrightnessVisible(false); }, 500);
+	}
+	btnBrightnessOn.hoverCB = function()
+	{
+		clearTimeout(brightnessFadeOutTimeOut);
+	}
+	
+	btnBrightnessOff = new Button("button-brightness-off", SphereButton.src,
+		SphereButton.src, SphereButton.src);
+	btnBrightnessOff.alwaysActive = true;
+	btnBrightnessOff.hoverCB = function()
+	{
+		setBrightnessVisible(true);
+	}
+	
+	btnBrightnessUp = new Button("button-brightness-on-img", SphereButton.src,
+		SphereLButtonUp.src, SphereLButtonUp.src);
+	btnBrightnessUp.alwaysActive = true;
+	btnBrightnessUp.downCB = function()
+	{
+		GameboyBrightness += 0.1;
+		if(GameboyBrightness > 1.0)
+		{
+			GameboyBrightness = 1.0;
+		}
+		clearTimeout(brightnessFadeOutTimeOut);
+		var bText = Math.floor(GameboyBrightness * 10);
+		document.getElementById("brightness-text").innerHTML = bText.toString();
+	}
+	btnBrightnessUp.outCB = function()
+	{
+		brightnessFadeOutTimeOut = setTimeout(
+			function() { setBrightnessVisible(false); }, 500);
+	}
+	btnBrightnessUp.hoverCB = function()
+	{
+		clearTimeout(brightnessFadeOutTimeOut);
+	}
+	
+	btnBrightnessDown = new Button("button-brightness-on-img", SphereButton.src,
+		SphereLButtonDown.src, SphereLButtonDown.src);
+	btnBrightnessDown.alwaysActive = true;
+	btnBrightnessDown.downCB = function()
+	{
+		GameboyBrightness -= 0.1;
+		if(GameboyBrightness < 0)
+		{
+			GameboyBrightness = 0;
+		}
+		clearTimeout(brightnessFadeOutTimeOut);
+		var bText = Math.floor(GameboyBrightness * 10);
+		document.getElementById("brightness-text").innerHTML = bText.toString();
+	}
+	btnBrightnessDown.hoverCB = function()
+	{
+		clearTimeout(brightnessFadeOutTimeOut);
+	}
+	btnBrightnessDown.outCB = function()
+	{
+		brightnessFadeOutTimeOut = setTimeout(
+			function() { setBrightnessVisible(false); }, 500);
+	}
 }
 
 function setVolumeVisible(visibile)
@@ -163,6 +243,20 @@ function setVolumeVisible(visibile)
 	{
 		document.getElementById("button-volume-off").style.visibility = 'visible';
 		document.getElementById("button-volume-on").style.visibility = 'hidden';
+	}
+}
+
+function setBrightnessVisible(visibile)
+{
+	if(visibile)
+	{
+		document.getElementById("button-brightness-off").style.visibility = 'hidden';
+		document.getElementById("button-brightness-on").style.visibility = 'visible';
+	}
+	else
+	{
+		document.getElementById("button-brightness-off").style.visibility = 'visible';
+		document.getElementById("button-brightness-on").style.visibility = 'hidden';
 	}
 }
 
@@ -180,6 +274,7 @@ function SetLight(is_on)
 }
 
 var volumeFadeOutTimeOut = null;
+var brightnessFadeOutTimeOut = null;
 
 document.addEventListener('keydown', function(event)
 {
@@ -232,6 +327,16 @@ document.addEventListener('keydown', function(event)
 	{
 		setVolumeVisible(true);
 		btnVolumeUp.down();
+	}
+	else if(event.keyCode == 74)
+	{
+		setBrightnessVisible(true);
+		btnBrightnessDown.down();
+	}
+	else if(event.keyCode == 75)
+	{
+		setBrightnessVisible(true);
+		btnBrightnessUp.down();
 	}
 });
 
@@ -288,6 +393,18 @@ document.addEventListener('keyup', function(event)
 		btnVolumeUp.up();
 		volumeFadeOutTimeOut = setTimeout(
 			function() { setVolumeVisible(false); }, 500);
+	}
+	else if(event.keyCode == 74)
+	{
+		btnBrightnessDown.up();
+		brightnessFadeOutTimeOut = setTimeout(
+			function() { setBrightnessVisible(false); }, 500);
+	}
+	else if(event.keyCode == 75)
+	{
+		btnBrightnessUp.up();
+		brightnessFadeOutTimeOut = setTimeout(
+			function() { setBrightnessVisible(false); }, 500);
 	}
 });
 

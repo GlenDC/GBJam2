@@ -229,30 +229,46 @@ area {
 
 /* wheels */
 
-#button-volume-on, #button-volume-off {
+#button-volume-on, #button-volume-off,
+#button-brightness-on, #button-brightness-off {
 	position: absolute;
 	cursor: pointer;
 	width: 52px;
 	height: 52px;
+	color: #bbbbbb
+}
+#button-brightness-on, #button-brightness-off {
 	margin-top: 60px;
+}
+
+#button-volume-on, #button-volume-off {
+	margin-top: 80px;
 }
 
 #button-volume-on {
 	margin-left: 285px;
-	color: #bbbbbb
 }
 
-#button-volume-on p, #button-volume-on img {
+#button-brightness-on {
+	margin-left: -35px;
+}
+
+#button-volume-on p, #button-volume-on img,
+#button-brightness-on p, #button-brightness-on img {
 	cursor: pointer;
 	margin: 0;
 	padding: 0;
 }
 
-#button-volume-on p {
+#button-volume-on p, #button-brightness-on p {
 	text-align: center;
 	margin-top: -42px;
 }
 
 #button-volume-off {
 	margin-left: 258px;
+}
+
+#button-brightness-off {
+	margin-left: -10px;
 }
