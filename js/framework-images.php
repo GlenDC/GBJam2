@@ -31,4 +31,8 @@
 	pCreateJSImage("PowerOffHover", 50, 26, "PowerButtonOff_Hover.png");
 	pCreateJSImage("PowerOnIdle", 50, 26, "PowerButtonOn_Idle.png");
 	pCreateJSImage("PowerOnHover", 50, 26, "PowerButtonOn_Hover.png");
+	
+	pCreateJSImage("SphereButton", 52, 52, "Wheel.png");
+	pCreateJSImage("SphereButtonDown", 52, 52, "Wheel_Down.png");
+	pCreateJSImage("SphereButtonUp", 52, 52, "Wheel_Up.png");
 ?>

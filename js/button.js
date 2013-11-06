@@ -49,7 +49,7 @@ function ButtonSwitch
 			this.update();
 			if(this.upCB != null) this.upCB();
 		}
-	}
+	};
 	
 	this.out = function ()
 	{
@@ -62,7 +62,7 @@ function ButtonSwitch
 			this.update();
 			if(this.outCB != null) this.outCB();
 		}
-	}
+	};
 	
 	this.hover = function ()
 	{
@@ -75,7 +75,7 @@ function ButtonSwitch
 			this.update();
 			if(this.hoverCB != null) this.hoverCB();
 		}
-	}
+	};
 	
 	this.down = function ()
 	{
@@ -94,12 +94,12 @@ function ButtonSwitch
 				AudioManager.playGameboy(this.audio);
 			}
 		}
-	}
+	};
 	
 	this.update = function() 
 	{
 		document.getElementById(this.id).src = this.images[this.state];
-	}
+	};
 }
 
 function Button
@@ -129,7 +129,7 @@ function Button
 			this.update();
 			if(this.upCB != null) this.upCB();
 		}
-	}
+	};
 	
 	this.out = function ()
 	{
@@ -140,7 +140,7 @@ function Button
 			this.update();
 			if(this.outCB != null) this.outCB();
 		}
-	}
+	};
 	
 	this.hover = function ()
 	{
@@ -151,7 +151,7 @@ function Button
 			this.update();
 			if(this.hoverCB != null) this.hoverCB();
 		}
-	}
+	};
 	
 	this.down = function ()
 	{
@@ -166,10 +166,10 @@ function Button
 				AudioManager.playGameboy(this.audio);
 			}
 		}
-	}
+	};
 	
 	this.update = function() 
 	{
 		document.getElementById(this.id).src = this.images[this.state];
-	}
+	};
 }

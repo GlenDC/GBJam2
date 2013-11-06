@@ -229,14 +229,30 @@ area {
 
 /* wheels */
 
-#canvas-wheel-right {
+#button-volume-on, #button-volume-off {
 	position: absolute;
 	cursor: pointer;
 	width: 52px;
 	height: 52px;
+	margin-top: 60px;
 }
 
-#canvas-wheel-right {
+#button-volume-on {
 	margin-left: 285px;
-	margin-top: 60px;
+	color: #bbbbbb
+}
+
+#button-volume-on p, #button-volume-on img {
+	cursor: pointer;
+	margin: 0;
+	padding: 0;
+}
+
+#button-volume-on p {
+	text-align: center;
+	margin-top: -42px;
+}
+
+#button-volume-off {
+	margin-left: 258px;
 }

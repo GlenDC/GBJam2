@@ -20,8 +20,28 @@
 		echo 'onmouseup="' . $mUp . '" />';
 	}
 	
-	function pCreateCrossButtonArea(
-		$id, $coords, $alt, $mOver, $mOut, $mDown, $mUp
+	function pCreateImageMapBtn(
+		$class, $id, $src, $mOver, $mOut, $mDown, $mUp, $map
+		)
+	{
+		global $dir_framework;
+		
+		echo '<img ';
+		if($class != "")
+		{
+			echo 'class=' . $class . ' ';
+		}
+		echo 'id=' . $id;
+		echo ' draggable=false class=unselectable src="' . $dir_framework;
+		echo $src . '" onmouseover="' . $mOver . '" ';
+		echo 'onmouseout="' . $mOut . '" ';
+		echo 'onmousedown="' . $mDown . '" ';
+		echo 'onmouseup="' . $mUp . '" ';
+		echo 'usemap="' . $map . '" />';
+	}
+	
+	function pCreateButtonArea(
+		$coords, $alt, $mOver, $mOut, $mDown, $mUp
 		)
 	{
 		echo '<area shape=rect onmouseover="' . $mOver . '" ';

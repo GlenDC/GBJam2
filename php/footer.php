@@ -13,7 +13,7 @@
 	$gbjam->name = "GBJam";
 	$gbjam->website = "http://www.gbjam.net/";
 	
-	$day = 5;
+	$day = 6;
 ?>
 
 <p>A <?php $gbjam->getInfo(); ?> HTML5 Game Developed By<br/>

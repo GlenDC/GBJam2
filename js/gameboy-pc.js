@@ -8,7 +8,8 @@ var GamebuttonPowerBlink = false;
 
 var btnA, btnB, btnStart, btnSelect,
 	btnUp, btnDown, btnLeft, btnRight,
-	btnPower, btnInfo;
+	btnPower, btnInfo, btnVolumeOn, btnVolumeOff,
+	btnVolumeUp, btnVolumeDown;
 
 var btnscript = document.createElement('script');
 btnscript.src = "js/button.js";
@@ -30,7 +31,6 @@ btnscript.onload = function()
 	btnA.downCB = function()
 	{
 		SetInfoHiddenIfNeeded();
-		//AudioManager.setVolume(1);
 	}
 		
 	btnB = new Button("button-B", RoundIdle.src, 
@@ -38,7 +38,6 @@ btnscript.onload = function()
 	btnB.audio = "ButtonHardClick.mp3";
 	btnB.downCB = function()
 	{
-		//AudioManager.setVolume(0);
 	}
 		
 	btnStart = new Button("button-start", RectIdle.src, 
@@ -94,6 +93,77 @@ btnscript.onload = function()
 			GameStop();
 		}
 	}
+	
+	btnVolumeOn = new Button("button-volume-on-img", SphereButton.src,
+		SphereButton.src, SphereButton.src);
+	btnVolumeOn.alwaysActive = true;
+	btnVolumeOn.outCB = function()
+	{
+		volumeFadeOutTimeOut = setTimeout(
+			function() { setVolumeVisible(false); }, 500);
+	}
+	btnVolumeOn.hoverCB = function()
+	{
+		clearTimeout(volumeFadeOutTimeOut);
+	}
+	
+	btnVolumeOff = new Button("button-volume-off", SphereButton.src,
+		SphereButton.src, SphereButton.src);
+	btnVolumeOff.alwaysActive = true;
+	btnVolumeOff.hoverCB = function()
+	{
+		setVolumeVisible(true);
+	}
+	
+	btnVolumeUp = new Button("button-volume-on-img", SphereButton.src,
+		SphereButtonUp.src, SphereButtonUp.src);
+	btnVolumeUp.alwaysActive = true;
+	btnVolumeUp.downCB = function()
+	{
+		AudioManager.increaseVolume();
+		clearTimeout(volumeFadeOutTimeOut);
+	}
+	btnVolumeUp.outCB = function()
+	{
+		volumeFadeOutTimeOut = setTimeout(
+			function() { setVolumeVisible(false); }, 500);
+	}
+	btnVolumeUp.hoverCB = function()
+	{
+		clearTimeout(volumeFadeOutTimeOut);
+	}
+	
+	btnVolumeDown = new Button("button-volume-on-img", SphereButton.src,
+		SphereButtonDown.src, SphereButtonDown.src);
+	btnVolumeDown.alwaysActive = true;
+	btnVolumeDown.downCB = function()
+	{
+		AudioManager.decreaseVolume();
+		clearTimeout(volumeFadeOutTimeOut);
+	}
+	btnVolumeDown.hoverCB = function()
+	{
+		clearTimeout(volumeFadeOutTimeOut);
+	}
+	btnVolumeDown.outCB = function()
+	{
+		volumeFadeOutTimeOut = setTimeout(
+			function() { setVolumeVisible(false); }, 500);
+	}
+}
+
+function setVolumeVisible(visibile)
+{
+	if(visibile)
+	{
+		document.getElementById("button-volume-off").style.visibility = 'hidden';
+		document.getElementById("button-volume-on").style.visibility = 'visible';
+	}
+	else
+	{
+		document.getElementById("button-volume-off").style.visibility = 'visible';
+		document.getElementById("button-volume-on").style.visibility = 'hidden';
+	}
 }
 
 function SetLight(is_on)
@@ -108,6 +178,8 @@ function SetLight(is_on)
 		img.src = LightOff.src;
 	}
 }
+
+var volumeFadeOutTimeOut = null;
 
 document.addEventListener('keydown', function(event)
 {
@@ -150,6 +222,16 @@ document.addEventListener('keydown', function(event)
 	else if(event.keyCode == 27)
 	{
 		btnPower.down();
+	}
+	else if(event.keyCode == 79)
+	{
+		setVolumeVisible(true);
+		btnVolumeDown.down();
+	}
+	else if(event.keyCode == 80)
+	{
+		setVolumeVisible(true);
+		btnVolumeUp.down();
 	}
 });
 
@@ -194,6 +276,18 @@ document.addEventListener('keyup', function(event)
 	else if(event.keyCode == 27)
 	{
 		btnPower.up();
+	}
+	else if(event.keyCode == 79)
+	{
+		btnVolumeDown.up();
+		volumeFadeOutTimeOut = setTimeout(
+			function() { setVolumeVisible(false); }, 500);
+	}
+	else if(event.keyCode == 80)
+	{
+		btnVolumeUp.up();
+		volumeFadeOutTimeOut = setTimeout(
+			function() { setVolumeVisible(false); }, 500);
 	}
 });
 
